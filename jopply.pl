@@ -128,7 +128,7 @@ sample - Using Getopt::Long and Pod::Usage
 Options:
   --help brief help message
   --man full documentation
-  --lanid=14 läns-ID
+  --lanid=12 läns-ID
   --nyckelord=CAD,3D lista med söktermer
   --epost visa jobb som söks via e-post
   --webb visa jobb som söks via webbtjänst
