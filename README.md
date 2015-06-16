@@ -1,7 +1,6 @@
-# jopply
-Jopply (Job Apply) helps applying for jobs. This is a very early release and everything will change.
+# Jopply
+Jopply (Job Apply) helps applying for jobs. This is a very early release and everything will change. The rest of the text is in Swedish. The command-line arguments are also in Swedish and is the same as in the specification, but English arguments will be added in the future.
 
-Example:  
-jopply --keyword="cad" --lan=1 # Looks for job ads in Stockholm that contains CAD that can be applied for using e-mail.  
-jopply --keyword="cad" --lan=1 --noemail # Looks for jobs in Stockholm that contains CAD, but not restricted 
-to application via e-mail.
+Exempel:  
+jopply -n=CAD -l=1 # Visar annonsid för jobbannonser i Stockholms län som innehåller CAD. 
+jopply -n=CAD -l=1 -e # Visar annonsid och e-postadress för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via e-post.
