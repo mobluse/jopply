@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Jopply v0.1 by M.O.B. as Perl command-line application.
+# Jopply 2015-06-16 by M.O.B. as Perl command-line application.
 # Copyright (C) 2015 by Mikael O. Bonnier, Lund, Sweden.
 # License: GNU GPL v3 or later, http://www.gnu.org/licenses/gpl.txt
 # Donations are welcome to PayPal mikael.bonnier@gmail.com.
@@ -7,11 +7,12 @@
 #
 # It was developed in Raspbian on Raspberry Pi 2.
 #
-# Howto run:
+# Howto install and run in Linux:
+# sudo apt-get update && sudo apt-get install libwww-curl-perl libjson-perl
 # ./jopply.pl
 #
 # Revision history:
-# 2015-Jun: 0.1 Beta versions.
+# 2015-Jun: Alpha versions.
 #
 # Suggestions, improvements, and bug-reports
 # are always welcome to:
@@ -54,7 +55,7 @@ use Pod::Usage;
 
 my $help = 0;
 my $man = 0;
-my $nyckelord = 'CAD,3D';
+my $nyckelord = '';
 my $lanid = '';
 my $ansokan_epostadress = '';
 my $ansokan_webbadress = '';
