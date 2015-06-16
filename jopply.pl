@@ -9,22 +9,22 @@ use WWW::Curl::Easy;
 use JSON;
 #use Data::Dumper;
 
-my $keyword = "CAD 3D";
+my $nyckelord = 'CAD 3D';
 my $lanid = 12;
-my $apply_email = '1';
+my $ansokan_epostadress = '';
 my $verbose;
-GetOptions ("keyword=s" => \$keyword,
+GetOptions ("nyckelord=s" => \$nyckelord,
             "lanid=i" => \$lanid,
-            "email!" => \$apply_email)
-  or die("Error in command line arguments.\n");
-$keyword = uri_escape($keyword);
+            "epostadress!" => \$ansokan_epostadress)
+  or die("Fel i kommandoradsargument.\n");
+$nyckelord = uri_escape($nyckelord);
 my $curl = WWW::Curl::Easy->new;
 $curl->setopt(CURLOPT_HEADER, 0);
 my @H = ('Accept-Language:sv');
 $curl->setopt(CURLOPT_HTTPHEADER, \@H);
 my $URL = "http://api.arbetsformedlingen.se/af/v0/platsannonser";
 $curl->setopt(CURLOPT_URL, "$URL/matchning?lanid=$lanid"
-  . "&nyckelord=$keyword&antalrader=9999");
+  . "&nyckelord=$nyckelord&antalrader=9999");
 my $response_body;
 $curl->setopt(CURLOPT_WRITEDATA, \$response_body);
 my $retcode = $curl->perform;
@@ -36,21 +36,21 @@ my $decoded_json = decode_json($response_body);
 #  print encode('utf-8', decode('iso-8859-1', $elem->{'namn'})) . "\n";
 #}
 
-my @ad_id = values $decoded_json->{'matchningslista'}{'matchningdata'};
+my @annonsid = values $decoded_json->{'matchningslista'}{'matchningdata'};
 my $total = 0;
 my $line = 0;
-for my $elem (@ad_id) {
+for my $elem (@annonsid) {
   #print("$elem->{'annonsid'}\n");
   ++$total;
   $curl->setopt(CURLOPT_URL, "$URL/$elem->{'annonsid'}");
-  if($apply_email) {
+  if($ansokan_epostadress) {
     $response_body = '';
     $retcode = $curl->perform;
     $decoded_json = decode_json($response_body);
-    my $email = $decoded_json->{'platsannons'}{'ansokan'}{'epostadress'};
-    if ($email) {
+    my $epostadress = $decoded_json->{'platsannons'}{'ansokan'}{'epostadress'};
+    if ($epostadress) {
       ++$line;
-      print("$line: $elem->{'annonsid'}: $email\n");
+      print("$line: $elem->{'annonsid'}: $epostadress\n");
     }
   }
   else {
