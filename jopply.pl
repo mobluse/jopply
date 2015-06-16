@@ -167,35 +167,35 @@ Options:
   --lanid=12 läns-ID
   --nyckelord=CAD,3D lista med söktermer
   --epost visa jobb som söks via e-post
-  --webb visa jobb som söks via webbtjänst
+  --webb visa jobb som söks via webbtjänster
 
 =head1 OPTIONS
 
 =over 8
 
-=item B<-help>
+=item B<--help>
 
 Prints a brief help message and exits.
 
-=item B<-man>
+=item B<--man>
 
 Prints the manual page and exits.
 
-=item B<-lanid>
+=item B<--lanid>
 
 Väljer läns-ID. Om ID utelämnas så visas en lista med ID och län.
 
-=item B<-nyckelord>
+=item B<--nyckelord>
 
 Lista med nyckelord/sökord som separeras med komma.
 
-=item B<-epost>
+=item B<--epost>
 
 Visa jobb som kan sökas via e-post och e-postadressen.
 
-=item B<-webb>
+=item B<--webb>
 
-Visa jobb som söks via webbtjänst.
+Visa jobb som söks via webbtjänster.
 
 =back
 
