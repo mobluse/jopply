@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 # Jopply 2015-06-16 by M.O.B. as Perl command-line application.
 # Copyright (C) 2015 by Mikael O. Bonnier, Lund, Sweden.
-# License: GNU GPL v3 or later, http://www.gnu.org/licenses/gpl.txt
+# License: GNU AGPL v3 or later, https://gnu.org/licenses/agpl-3.0.txt
 # Donations are welcome to PayPal mikael.bonnier@gmail.com.
 # The source code is at https://github.com/mobluse/jopply/
 #
@@ -67,7 +67,7 @@ GetOptions('help|?' => \$help, man => \$man,
            'webbadress' => \$ansokan_webbadress,
            'annonsid=s' => \$annonsid)
   or pod2usage(2);
-pod2usage(1) if $help || !$nyckelord;
+pod2usage(1) if ($help || !$nyckelord) && !($lanid ne '' && $lanid == 0);
 pod2usage(-exitval => 0, -verbose => 2) if $man;
 
 $nyckelord = join(' ', split(/,/, $nyckelord));
