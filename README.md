@@ -1,10 +1,11 @@
 # Jopply
-Jopply (Job Apply) helps applying for jobs. This is a very early release
-and everything will change. The rest of the text is in Swedish. The
-command-line arguments are also in Swedish and are the same as in
-the specification, but English arguments will be added in the future.
+Jopply (a portmanteau of job and apply) helps applying for jobs.
+This is a very early release and everything will change. The rest of
+the text is in Swedish. The command-line arguments are also in Swedish
+and are the same as in the specification, but English arguments will
+be added in the future.
 
-##Exempel:
+## Exempel:
 #### Visar den inbyggda hjälpen:
 ###./jopply.pl --help
 
