@@ -9,9 +9,9 @@ use WWW::Curl::Easy;
 use JSON;
 use Data::Dumper;
 use Pod::Usage;
-my $man = 0;
-my $help = 0;
 
+my $help = 0;
+my $man = 0;
 my $nyckelord = 'CAD,3D';
 my $lanid = '';
 my $ansokan_epostadress = '';
@@ -62,17 +62,10 @@ $curl->setopt(CURLOPT_URL, "$URL/matchning?lanid=$lanid"
 $retcode = $curl->perform;
 $decoded_json = decode_json($response_body);
 
-#print(Dumper $decoded_json);
-
-#for my $elem (values $decoded_json->{'soklista'}{'sokdata'}) {
-#  print encode('utf-8', decode('iso-8859-1', $elem->{'namn'})) . "\n";
-#}
-
 my $total = 0;
 my $line = 0;
 my @annonsid = values $decoded_json->{'matchningslista'}{'matchningdata'};
 foreach my $elem (@annonsid) {
-  #print("$elem->{'annonsid'}\n");
   ++$total;
   $curl->setopt(CURLOPT_URL, "$URL/$elem->{'annonsid'}");
   if($ansokan_epostadress || $ansokan_webbadress) {
@@ -119,7 +112,7 @@ __END__
 
 =head1 NAME
 
-sample - Using Getopt::Long and Pod::Usage
+jopply.pl - Jopply helps applying for jobs in Sweden.
 
 =head1 SYNOPSIS
 
@@ -165,7 +158,10 @@ Visa jobb som söks via webbtjänst.
 
 =head1 DESCRIPTION
 
-B<This program> will read the given input file(s) and do something
-useful with the contents thereof.
+B<Jopply> (a portmanteau of job and apply) helps applying for jobs.
+This is a very early release and everything will change. The rest of
+the text is in Swedish. The command-line arguments are also in Swedish
+and are the same as in the specification, but English arguments will be
+added in the future.
 
 =cut
