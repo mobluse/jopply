@@ -9,7 +9,7 @@
 #
 # Howto install and run in Linux:
 # sudo apt-get update && sudo apt-get install libwww-curl-perl libjson-perl
-# ./jopply.pl
+# ./jopply.pl --help
 #
 # Revision history:
 # 2015-Jun: Alpha versions.
@@ -67,7 +67,7 @@ GetOptions('help|?' => \$help, man => \$man,
            'webbadress' => \$ansokan_webbadress,
            'annonsid=s' => \$annonsid)
   or pod2usage(2);
-pod2usage(1) if $help;
+pod2usage(1) if $help || !$nyckelord;
 pod2usage(-exitval => 0, -verbose => 2) if $man;
 
 $nyckelord = join(' ', split(/,/, $nyckelord));
