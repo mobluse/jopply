@@ -9,7 +9,7 @@
 #
 # Howto install and run in Linux:
 # sudo apt-get update && sudo apt-get install libwww-curl-perl libjson-perl
-# ./jopply.pl --help
+# ./jopply.pl
 #
 # Revision history:
 # 2015-Jun: Alpha versions.

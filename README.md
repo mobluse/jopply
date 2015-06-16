@@ -1,10 +1,15 @@
 # Jopply
 Jopply (a portmanteau of job and apply) helps applying for jobs.
-This is a very early release and everything will change. The rest of
-the text is in Swedish, because right now it only works for a Swedish
-web service. The command-line arguments are also in Swedish and are the
-same as in the specification from Arbetsförmedlingen, but English
-arguments will be added in the future.
+This is a very early release and everything will change.
+
+### Howto install and run in Linux:
+#### sudo apt-get update && sudo apt-get install libwww-curl-perl libjson-perl
+### ./jopply.pl
+
+The rest of the text is in Swedish, because right now it only works
+for a Swedish web service. The command-line arguments are also in
+Swedish and are the same as in the specification from
+Arbetsförmedlingen, but English arguments will be added in the future.
 
 ## Exempel:
 #### Visar den inbyggda hjälpen:
