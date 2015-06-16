@@ -1,4 +1,46 @@
 #!/usr/bin/perl
+# Jopply v0.1 by M.O.B. as Perl command-line application.
+# Copyright (C) 2015 by Mikael O. Bonnier, Lund, Sweden.
+# License: GNU GPL v3 or later, http://www.gnu.org/licenses/gpl.txt
+# Donations are welcome to PayPal mikael.bonnier@gmail.com.
+# The source code is at https://github.com/mobluse/jopply/
+#
+# It was developed in Raspbian on Raspberry Pi 2.
+#
+# Howto run:
+# ./jopply.pl
+#
+# Revision history:
+# 2015-Jun: 0.1 Beta versions.
+#
+# Suggestions, improvements, and bug-reports
+# are always welcome to:
+# Mikael Bonnier
+# Osten Undens gata 88
+# SE-227 62 LUND
+# SWEDEN
+#
+# Or use my internet addresses:
+# mikael.bonnier@gmail.com
+# http://www.df.lth.se.orbin.se/~mikaelb/
+#              _____
+#             /   / \
+# ***********/   /   \***********
+#           /   /     \
+# *********/   /       \*********
+#         /   /   / \   \
+# *******/   /   /   \   \*******
+#       /   /   / \   \   \
+# *****/   /   /***\   \   \*****
+#     /   /__ /_____\   \   \
+# ***/               \   \   \***
+#   /_________________\   \   \
+# **\                      \  /**
+#    \______________________\/
+#
+# Mikael Bonnier
+#/////////////////////////////////////////////////////////////////////
+
 use strict;
 use warnings;
 #use utf8;
