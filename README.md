@@ -5,8 +5,8 @@ command-line arguments are also in Swedish and is the same as in
 the specification, but English arguments will be added in the future.
 
 ##Exempel:
-#### Visar annonsid för jobbannonser i Stockholms län som innehåller CAD.
-./jopply -ny=CAD -l=1
+#### Visar annonsid för jobbannonser i Stockholms län som innehåller CAD och 3D.
+###./jopply.pl -n=CAD,3D -l=1
 
 #### Visar annonsid och e-postadress för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via e-post.
-./jopply -ny=CAD -l=1 -e
+###./jopply.pl -n=CAD -l=1 -e
