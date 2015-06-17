@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Jopply 2015-06-17 by M.O.B. as Perl command-line application.
+# Furl-Jopply 2015-06-17 by M.O.B. as Perl command-line application.
 # Copyright (C) 2015 by Mikael O. Bonnier, Lund, Sweden.
 # License: GNU AGPL v3 or later, https://gnu.org/licenses/agpl-3.0.txt
 # Donations are welcome to PayPal mikael.bonnier@gmail.com.
@@ -8,14 +8,12 @@
 # It was developed in Raspbian on Raspberry Pi 2.
 #
 # How to install and run in Linux:
-# sudo apt-get update && sudo apt-get install libwww-curl-perl libjson-perl
-# ./jopply.pl
+# sudo apt-get update && sudo apt-get install cpanminus && sudo cpanm Furl
+# ./furl-jopply.pl
 #
-# How to install and run in Windows using ActivePerl:
-# ppm install WWW-Curl --force
-# chcp 850
-# perl jopply.pl
-# Tested in Windows Vista and works with cp850.
+# Not tested in Windows.
+#
+# The advantage of Furl is that it is Pure Perl.
 #
 # Revision history:
 # 2015-Jun: Alpha versions.
@@ -58,8 +56,8 @@ use Encode qw(decode encode);
 use Data::Dumper;
 use Pod::Usage;
 use JSON;
-use WWW::Curl::Easy;
-#use Furl;
+#use WWW::Curl::Easy;
+use Furl;
 
 my $encoding = $^O eq 'MSWin32' ? 'cp850' : 'utf8';
 if ($encoding ne 'utf8') {
@@ -97,27 +95,22 @@ if ($encoding ne 'utf8') {
 else {
   $nyckelord = uri_escape($nyckelord);
 }
-my $curl = WWW::Curl::Easy->new;
-$curl->setopt(CURLOPT_HEADER, 0);
-my @H = ('Accept-Language:sv');
-$curl->setopt(CURLOPT_HTTPHEADER, \@H);
+
+my $furl = Furl->new(
+        headers => [ 'Accept' => 'application/json', 'Accept-Language' => 'sv' ],
+    );
 my $URL = "http://api.arbetsformedlingen.se/af/v0/platsannonser";
-my $response_body;
-my $retcode;
+my $response;
 my $decoded_json;
-$curl->setopt(CURLOPT_WRITEDATA, \$response_body);
 if ($annonsid) {
-  $curl->setopt(CURLOPT_URL, "$URL/$annonsid");
-  $response_body = '';
-  $retcode = $curl->perform;
-  $decoded_json = decode_json($response_body);
+  $response = $furl->get("$URL/$annonsid");
+  $decoded_json = decode_json($response->body);
   print Dumper $decoded_json;
   exit 0;
 }
 if ($lanid ne '' && $lanid == 0) {
-  $curl->setopt(CURLOPT_URL, "$URL/soklista/lan");
-  $retcode = $curl->perform;
-  $decoded_json = decode_json($response_body);
+  $response = $furl->get("$URL/soklista/lan");
+  $decoded_json = decode_json($response->body);
   #print(Dumper $decoded_json);
   foreach my $elem (values $decoded_json->{'soklista'}{'sokdata'}) {
     printf "%2d; %s\n", $elem->{id}, iso2utf($elem->{namn});
@@ -125,10 +118,9 @@ if ($lanid ne '' && $lanid == 0) {
   exit 0;
 }
 
-$curl->setopt(CURLOPT_URL, "$URL/matchning?lanid=$lanid"
+$response = $furl->get("$URL/matchning?lanid=$lanid"
   . "&nyckelord=$nyckelord&antalrader=9999");
-$retcode = $curl->perform;
-$decoded_json = decode_json($response_body);
+$decoded_json = decode_json($response->body);
 if ((keys $decoded_json)[0] eq 'Error') {
   print Dumper $decoded_json;
   exit 0;
@@ -142,12 +134,10 @@ my $line = 0;
 my @annonsid = values $decoded_json->{'matchningslista'}{'matchningdata'};
 foreach my $elem (@annonsid) { # Bug in Perl if using directly.
   ++$total;
-  $curl->setopt(CURLOPT_URL, "$URL/$elem->{'annonsid'}");
   if($ansokan_epostadress || $ansokan_webbadress) {
     sleep 0.2;
-    $response_body = '';
-    $retcode = $curl->perform;
-    $decoded_json = decode_json($response_body);
+    $response = $furl->get("$URL/$elem->{'annonsid'}");
+    $decoded_json = decode_json($response->body);
     my $epostadress = $decoded_json->{'platsannons'}{'ansokan'}{'epostadress'};
     my $webbadress = $decoded_json->{'platsannons'}{'ansokan'}{'webbplats'};
     # According to the specification webbplats should be webbadress.
