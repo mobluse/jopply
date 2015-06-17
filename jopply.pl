@@ -14,7 +14,7 @@
 # How to install and run in Windows using ActivePerl:
 # ppm install WWW-Curl --force
 # perl jopply.pl
-# Tested in Windows Vista. ÅÄÖÜÉåäöüé don't work.
+# Tested in Windows Vista and works with cp850.
 #
 # Revision history:
 # 2015-Jun: Alpha versions.

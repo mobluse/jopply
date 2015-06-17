@@ -2,9 +2,14 @@
 Jopply (a portmanteau of job and apply) helps applying for jobs.
 This is a very early release and everything will change.
 
-### Howto install and run in Linux:
+### How to install and run in Linux:
 #### sudo apt-get update && sudo apt-get install libwww-curl-perl libjson-perl
 ### ./jopply.pl
+
+### How to install and run in Windows using ActivePerl:
+#### ppm install WWW-Curl --force
+### perl jopply.pl
+Tested in Windows Vista on x86-32 and works with cp850.
 
 The rest of the text is in Swedish, because right now it only works
 for a Swedish web service. The command-line arguments are also in
