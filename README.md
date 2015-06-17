@@ -17,23 +17,23 @@ Swedish and are the same as in the specification from
 Arbetsförmedlingen, but English arguments will be added in the future.
 
 ## Exempel:
-#### Visar den inbyggda hjälpen:
+#### Visa den inbyggda hjälpen!
 ###./jopply.pl --help
 
-#### Visar alla län med läns-ID:
+#### Visa alla län med läns-ID!
 ###./jopply.pl --lanid
 
-#### Visar annonsid för alla jobbannonser i Stockholms län som innehåller CAD och 3D:
+#### Visa annonsid för alla jobbannonser i Stockholms län som innehåller CAD och 3D!
 ###./jopply.pl --n=CAD,3D --l=1 --verbose
 
-#### Visar annonsid och e-postadress för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via e-post:
+#### Visa annons-ID och e-postadress för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via e-post!
 ###./jopply.pl --nyckelord=CAD --lanid=1 --epost
 
-#### Visar annonsid och webbplats för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via webbplatser:
+#### Visa annonsid och webbplats för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via webbplatser!
 ###./jopply.pl --keyword=CAD --lanid=1 --web
 
-#### Visar annonsid och webbplats eller e-postadress för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via webbplatser eller e-post:
+#### Visa annonsid och webbplats eller e-postadress för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via webbplatser eller e-post!
 ###./jopply.pl -k=CAD -l=1 -w -e
 
-#### Visar annons med annonsid:
+#### Visa annons med annons-ID!
 ###./jopply.pl --annonsid=2621881

@@ -71,13 +71,13 @@ my $verbose = 0;
 my $nyckelord = '';
 my $lanid = '';
 my $ansokan_epostadress = '';
-my $ansokan_webbadress = '';
+my $ansokan_webbplats = '';
 my $annonsid = '';
 GetOptions('help|?' => \$help, man => \$man, verbose => \$verbose,
            'nyckelord|keyword=s' => \$nyckelord,
            'lanid:i' => \$lanid,
            'epostadress' => \$ansokan_epostadress,
-           'webbadress' => \$ansokan_webbadress,
+           'webbadress' => \$ansokan_webbplats,
            'annonsid=s' => \$annonsid)
   or pod2usage(2);
 if ($man) {
@@ -134,12 +134,12 @@ my $line = 0;
 my @annonsid = values $decoded_json->{'matchningslista'}{'matchningdata'};
 foreach my $elem (@annonsid) { # Bug in Perl if using directly.
   ++$total;
-  if($ansokan_epostadress || $ansokan_webbadress) {
+  if($ansokan_epostadress || $ansokan_webbplats) {
     sleep 0.2;
     $response = $furl->get("$URL/$elem->{'annonsid'}");
     $decoded_json = decode_json($response->body);
     my $epostadress = $decoded_json->{'platsannons'}{'ansokan'}{'epostadress'};
-    my $webbadress = $decoded_json->{'platsannons'}{'ansokan'}{'webbplats'};
+    my $webbplats = $decoded_json->{'platsannons'}{'ansokan'}{'webbplats'};
     # According to the specification webbplats should be webbadress.
     my $b_line = 0;
     if ($ansokan_epostadress && $epostadress) {
@@ -147,15 +147,15 @@ foreach my $elem (@annonsid) { # Bug in Perl if using directly.
       ++$line;
       print("$line; $elem->{'annonsid'}; $epostadress");
     }
-    if ($ansokan_webbadress && $webbadress) {
-      $webbadress = iso2utf($webbadress);
+    if ($ansokan_webbplats && $webbplats) {
+      $webbplats = iso2utf($webbplats);
       if ($b_line) {
-        print("; $webbadress\n");
+        print("; $webbplats\n");
       }
       else {
         $b_line = 1;
         ++$line;
-        print("$line; $elem->{'annonsid'}; ; $webbadress\n");
+        print("$line; $elem->{'annonsid'}; ; $webbplats\n");
       }
     }
     else {
