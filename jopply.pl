@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Jopply 2015-06-16 by M.O.B. as Perl command-line application.
+# Jopply 2015-06-17 by M.O.B. as Perl command-line application.
 # Copyright (C) 2015 by Mikael O. Bonnier, Lund, Sweden.
 # License: GNU AGPL v3 or later, https://gnu.org/licenses/agpl-3.0.txt
 # Donations are welcome to PayPal mikael.bonnier@gmail.com.
@@ -55,19 +55,21 @@ use Pod::Usage;
 
 my $help = 0;
 my $man = 0;
+my $verbose = 0;
 my $nyckelord = '';
 my $lanid = '';
 my $ansokan_epostadress = '';
 my $ansokan_webbadress = '';
 my $annonsid = '';
-GetOptions('help|?' => \$help, man => \$man,
+GetOptions('help|?' => \$help, man => \$man, verbose => \$verbose,
            'nyckelord|keyword=s' => \$nyckelord,
            'lanid:i' => \$lanid,
            'epostadress' => \$ansokan_epostadress,
            'webbadress' => \$ansokan_webbadress,
            'annonsid=s' => \$annonsid)
   or pod2usage(2);
-pod2usage(1) if ($help || !$nyckelord) && !($lanid ne '' && $lanid == 0);
+pod2usage(1) if ($help || !$nyckelord) && !$annonsid
+  && !($lanid ne '' && $lanid == 0);
 pod2usage(-exitval => 0, -verbose => 2) if $man;
 
 $nyckelord = join(' ', split(/,/, $nyckelord));
@@ -96,6 +98,8 @@ if ($lanid ne '' && $lanid == 0) {
   #print(Dumper $decoded_json);
   foreach my $elem (values $decoded_json->{'soklista'}{'sokdata'}) {
     printf "%2d:%s\n", $elem->{id}, encode('utf-8', decode('iso-8859-1', $elem->{namn}));
+    # For Windows/MS-DOS (not tested):
+    #printf "%2d:%s\n", $elem->{id}, encode('iso-8859-1', decode('iso-8859-1', $elem->{namn}));
   }
   exit 0;
 }
@@ -108,6 +112,7 @@ $decoded_json = decode_json($response_body);
 my $total = 0;
 my $line = 0;
 my @annonsid = values $decoded_json->{'matchningslista'}{'matchningdata'};
+# Bug in Perl if using directly.
 foreach my $elem (@annonsid) {
   ++$total;
   $curl->setopt(CURLOPT_URL, "$URL/$elem->{'annonsid'}");
@@ -117,6 +122,7 @@ foreach my $elem (@annonsid) {
     $decoded_json = decode_json($response_body);
     my $epostadress = $decoded_json->{'platsannons'}{'ansokan'}{'epostadress'};
     my $webbadress = $decoded_json->{'platsannons'}{'ansokan'}{'webbplats'};
+    # According to the specification webbplats should be webbadress.
     my $b_line = 0;
     if ($ansokan_epostadress && $epostadress) {
       $b_line = 1;
@@ -138,7 +144,7 @@ foreach my $elem (@annonsid) {
         print("\n");
       }
     }
-    if ($b_line) {
+    if ($b_line && $verbose) {
       print(Dumper $elem);
       print(Dumper $decoded_json->{'platsannons'}{'ansokan'});
     }
@@ -146,16 +152,18 @@ foreach my $elem (@annonsid) {
   else {
     ++$line;
     print("$line: $elem->{'annonsid'}\n");
-    print(Dumper $elem);
+    if ($verbose) {
+      print(Dumper $elem);
+    }
   }
 }
-print("$line/$total=".sprintf('%.2f', 100*$line/$total)."%\n");
+print("Total: $line/$total=".sprintf('%.2f', 100*$line/$total)."%\n");
 
 __END__
 
 =head1 NAME
 
-jopply.pl - Jopply helps applying for jobs in Sweden.
+jopply.pl - Hjälper till att söka jobb i Sverige.
 
 =head1 SYNOPSIS
 
@@ -164,6 +172,7 @@ jopply.pl - Jopply helps applying for jobs in Sweden.
 Options:
   --help kortfattat hjälpmeddelande
   --man full dokumentation (koden)
+  --verbose mer text om varje post
   --lanid=12 läns-ID
   --nyckelord=CAD,3D lista med söktermer
   --epost visa jobb som söks via e-post
@@ -175,17 +184,22 @@ Options:
 
 =item B<--help>
 
-Prints a brief help message and exits.
+Skriver ut en kortfattad hjälptext och avslutar.
+[en] Prints a brief help message and exits.
 
 =item B<--man>
 
-Prints the manual page and exits.
+Visar manualsidan (men nu koden). Avsluta med q.
+
+=item B<--verbose>
+
+Visar mer text om varje post.
 
 =item B<--lanid>
 
 Väljer läns-ID. Om ID utelämnas så visas en lista med ID och län.
 
-=item B<--nyckelord>
+=item B<--nyckelord eller --keyword>
 
 Lista med nyckelord/sökord som separeras med komma.
 

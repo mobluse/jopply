@@ -19,7 +19,7 @@ Arbetsförmedlingen, but English arguments will be added in the future.
 ###./jopply.pl --lanid
 
 #### Visar annonsid för alla jobbannonser i Stockholms län som innehåller CAD och 3D:
-###./jopply.pl --n=CAD,3D --l=1
+###./jopply.pl --n=CAD,3D --l=1 --verbose
 
 #### Visar annonsid och e-postadress för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via e-post:
 ###./jopply.pl --nyckelord=CAD --lanid=1 --epost
