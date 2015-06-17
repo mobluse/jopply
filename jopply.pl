@@ -80,12 +80,12 @@ GetOptions('help|?' => \$help, man => \$man, verbose => \$verbose,
            'webbadress' => \$ansokan_webbadress,
            'annonsid=s' => \$annonsid)
   or pod2usage(2);
+if ($man) {
+  pod2usage(-exitval => 0, -verbose => 2);
+}
 if (($help || !$nyckelord) && !$annonsid
   && !($lanid ne '' && $lanid == 0)) {
   pod2usage(1);
-}
-if ($man) {
-  pod2usage(-exitval => 0, -verbose => 2);
 }
 
 $nyckelord = join(' ', split(/,/, $nyckelord));
@@ -118,7 +118,7 @@ if ($lanid ne '' && $lanid == 0) {
   $decoded_json = decode_json($response_body);
   #print(Dumper $decoded_json);
   foreach my $elem (values $decoded_json->{'soklista'}{'sokdata'}) {
-    printf "%2d:%s\n", $elem->{id}, encode('utf-8', decode('iso-8859-1', $elem->{namn}));
+    printf "%2d; %s\n", $elem->{id}, iso2utf($elem->{namn});
   }
   exit 0;
 }
@@ -132,6 +132,9 @@ if ((keys $decoded_json)[0] eq 'Error') {
   exit 0;
 }
 
+if (!$decoded_json->{'matchningslista'}{'antal_sidor'}) {
+  exit 1;
+}
 my $total = 0;
 my $line = 0;
 my @annonsid = values $decoded_json->{'matchningslista'}{'matchningdata'};
@@ -150,16 +153,17 @@ foreach my $elem (@annonsid) { # Bug in Perl if using directly.
     if ($ansokan_epostadress && $epostadress) {
       $b_line = 1;
       ++$line;
-      print("$line: $elem->{'annonsid'}: $epostadress");
+      print("$line; $elem->{'annonsid'}; $epostadress");
     }
     if ($ansokan_webbadress && $webbadress) {
+      $webbadress = iso2utf($webbadress);
       if ($b_line) {
-        print(": $webbadress\n");
+        print("; $webbadress\n");
       }
       else {
         $b_line = 1;
         ++$line;
-        print("$line: $elem->{'annonsid'}: : $webbadress\n");
+        print("$line; $elem->{'annonsid'}; ; $webbadress\n");
       }
     }
     else {
@@ -174,13 +178,20 @@ foreach my $elem (@annonsid) { # Bug in Perl if using directly.
   }
   else {
     ++$line;
-    print("$line: $elem->{'annonsid'}\n");
+    my $annonsrubrik = iso2utf($elem->{'annonsrubrik'});
+    print("$line; $elem->{'annonsid'}; $annonsrubrik\n");
     if ($verbose) {
       print(Dumper $elem);
     }
   }
 }
-print("Total: $line/$total=".sprintf('%.2f', 100*$line/$total)."%\n");
+print("Total; $line/$total=".sprintf('%.2f', 100*$line/$total)."%\n");
+
+sub iso2utf {
+  my ($s) = @_;
+  $s = encode('utf-8', decode('iso-8859-1', $s));
+  return $s;
+}
 
 __END__
 

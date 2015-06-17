@@ -24,9 +24,9 @@ long_line_column=72
 
 [files]
 current_page=0
-FILE_NAME_0=663;Perl;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Fjopply.pl;0;2
-FILE_NAME_1=1394;Markdown;0;16;0;1;1;%2Fhome%2Fpi%2FDocuments%2Fjopply%2FREADME.md;0;2
-FILE_NAME_2=61;Sh;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Ftest.sh;0;2
+FILE_NAME_0=2568;Perl;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Fjopply.pl;0;2
+FILE_NAME_1=431;Markdown;0;16;0;1;1;%2Fhome%2Fpi%2FDocuments%2Fjopply%2FREADME.md;0;2
+FILE_NAME_2=0;None;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Ftest.bat;0;2
 
 [VTE]
 last_dir=/home/pi
