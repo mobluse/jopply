@@ -59,8 +59,10 @@ use Data::Dumper;
 use Pod::Usage;
 
 my $encoding = $^O eq 'MSWin32' ? 'cp850' : 'utf8';
-binmode(STDOUT, ":encoding($encoding)" );
-binmode(STDIN, ":encoding($encoding)" );
+if ($encoding ne 'utf8') {
+  binmode(STDOUT, ":encoding($encoding)" );
+  binmode(STDIN, ":encoding($encoding)" );
+}
 
 my $help = 0;
 my $man = 0;
@@ -86,7 +88,12 @@ if ($man) {
 }
 
 $nyckelord = join(' ', split(/,/, $nyckelord));
-$nyckelord = uri_escape_utf8($nyckelord);
+if ($encoding ne 'utf8') {
+  $nyckelord = uri_escape_utf8($nyckelord);
+}
+else {
+  $nyckelord = uri_escape($nyckelord);
+}
 my $curl = WWW::Curl::Easy->new;
 $curl->setopt(CURLOPT_HEADER, 0);
 my @H = ('Accept-Language:sv');
