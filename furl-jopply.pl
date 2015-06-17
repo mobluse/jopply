@@ -8,10 +8,13 @@
 # It was developed in Raspbian on Raspberry Pi 2.
 #
 # How to install and run in Linux:
-# sudo apt-get update && sudo apt-get install cpanminus && sudo cpanm Furl
+# sudo apt-get update && sudo apt-get install libjson-perl cpanminus && sudo cpanm Furl
 # ./furl-jopply.pl
 #
-# Not tested in Windows.
+# How to install and run in Windows with ActivePerl:
+# ppm install Furl
+# perl furl-jopply.pl
+# Tested in Windows Vista on x86-32 and works with cp850.
 #
 # The advantage of Furl is that it is Pure Perl.
 #
