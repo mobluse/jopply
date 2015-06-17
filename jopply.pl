@@ -162,8 +162,8 @@ jopply.pl - Jopply helps applying for jobs in Sweden.
 ./jopply.pl [options ...]
 
 Options:
-  --help brief help message
-  --man full documentation
+  --help kortfattat hjälpmeddelande
+  --man full dokumentation (koden)
   --lanid=12 läns-ID
   --nyckelord=CAD,3D lista med söktermer
   --epost visa jobb som söks via e-post
