@@ -7,9 +7,14 @@
 #
 # It was developed in Raspbian on Raspberry Pi 2.
 #
-# Howto install and run in Linux:
+# How to install and run in Linux:
 # sudo apt-get update && sudo apt-get install libwww-curl-perl libjson-perl
 # ./jopply.pl
+#
+# How to install and run in Windows using ActivePerl:
+# ppm WWW-Curl --force
+# perl jopply.pl
+# Tested in Windows Vista. ÅÄÖÜÉåäöüé don't work.
 #
 # Revision history:
 # 2015-Jun: Alpha versions.
@@ -68,9 +73,13 @@ GetOptions('help|?' => \$help, man => \$man, verbose => \$verbose,
            'webbadress' => \$ansokan_webbadress,
            'annonsid=s' => \$annonsid)
   or pod2usage(2);
-pod2usage(1) if ($help || !$nyckelord) && !$annonsid
-  && !($lanid ne '' && $lanid == 0);
-pod2usage(-exitval => 0, -verbose => 2) if $man;
+if (($help || !$nyckelord) && !$annonsid
+  && !($lanid ne '' && $lanid == 0)) {
+  pod2usage(1);
+}
+if ($man) {
+  pod2usage(-exitval => 0, -verbose => 2);
+}
 
 $nyckelord = join(' ', split(/,/, $nyckelord));
 $nyckelord = uri_escape($nyckelord);
