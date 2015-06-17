@@ -12,7 +12,7 @@
 # ./jopply.pl
 #
 # How to install and run in Windows using ActivePerl:
-# ppm WWW-Curl --force
+# ppm install WWW-Curl --force
 # perl jopply.pl
 # Tested in Windows Vista. ÅÄÖÜÉåäöüé don't work.
 #
@@ -49,7 +49,7 @@
 
 use strict;
 use warnings;
-#use utf8;
+use utf8;
 use Getopt::Long;
 use URI::Escape;
 use Encode qw(decode encode);
@@ -57,6 +57,10 @@ use WWW::Curl::Easy;
 use JSON;
 use Data::Dumper;
 use Pod::Usage;
+
+my $encoding = $^O eq 'MSWin32' ? 'cp850' : 'utf8';
+binmode(STDOUT, ":encoding($encoding)" );
+binmode(STDIN, ":encoding($encoding)" );
 
 my $help = 0;
 my $man = 0;
@@ -82,7 +86,7 @@ if ($man) {
 }
 
 $nyckelord = join(' ', split(/,/, $nyckelord));
-$nyckelord = uri_escape($nyckelord);
+$nyckelord = uri_escape_utf8($nyckelord);
 my $curl = WWW::Curl::Easy->new;
 $curl->setopt(CURLOPT_HEADER, 0);
 my @H = ('Accept-Language:sv');
@@ -106,9 +110,7 @@ if ($lanid ne '' && $lanid == 0) {
   $decoded_json = decode_json($response_body);
   #print(Dumper $decoded_json);
   foreach my $elem (values $decoded_json->{'soklista'}{'sokdata'}) {
-    printf "%2d:%s\n", $elem->{id}, encode('utf-8', decode('iso-8859-1', $elem->{namn}));
-    # For MS-DOS Command Prompt in Windows (not tested):
-    #printf "%2d:%s\n", $elem->{id}, encode('iso-8859-1', decode('iso-8859-1', $elem->{namn}));
+    printf "%2d:%s\n", $elem->{id}, decode('iso-8859-1', $elem->{namn});
   }
   exit 0;
 }
