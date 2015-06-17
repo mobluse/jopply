@@ -50,6 +50,7 @@
 use strict;
 use warnings;
 use utf8;
+use Time::HiRes qw(sleep);
 use Getopt::Long;
 use URI::Escape;
 use Encode qw(decode encode);
@@ -117,7 +118,7 @@ if ($lanid ne '' && $lanid == 0) {
   $decoded_json = decode_json($response_body);
   #print(Dumper $decoded_json);
   foreach my $elem (values $decoded_json->{'soklista'}{'sokdata'}) {
-    printf "%2d:%s\n", $elem->{id}, decode('iso-8859-1', $elem->{namn});
+    printf "%2d:%s\n", $elem->{id}, encode('utf-8', decode('iso-8859-1', $elem->{namn}));
   }
   exit 0;
 }
@@ -138,6 +139,7 @@ foreach my $elem (@annonsid) { # Bug in Perl if using directly.
   ++$total;
   $curl->setopt(CURLOPT_URL, "$URL/$elem->{'annonsid'}");
   if($ansokan_epostadress || $ansokan_webbadress) {
+    sleep 0.2;
     $response_body = '';
     $retcode = $curl->perform;
     $decoded_json = decode_json($response_body);
