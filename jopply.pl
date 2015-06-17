@@ -98,7 +98,7 @@ if ($lanid ne '' && $lanid == 0) {
   #print(Dumper $decoded_json);
   foreach my $elem (values $decoded_json->{'soklista'}{'sokdata'}) {
     printf "%2d:%s\n", $elem->{id}, encode('utf-8', decode('iso-8859-1', $elem->{namn}));
-    # For Windows/MS-DOS (not tested):
+    # For MS-DOS Command Prompt in Windows (not tested):
     #printf "%2d:%s\n", $elem->{id}, encode('iso-8859-1', decode('iso-8859-1', $elem->{namn}));
   }
   exit 0;
