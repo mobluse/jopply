@@ -60,6 +60,7 @@ use JSON;
 use WWW::Curl::Easy;
 
 my $encoding = $^O eq 'MSWin32' ? 'cp850' : 'utf8';
+print $encoding;
 if ($encoding ne 'utf8') {
   binmode(STDOUT, ":encoding($encoding)" );
   binmode(STDIN, ":encoding($encoding)" );
@@ -189,7 +190,12 @@ print("Total; $line/$total=".sprintf('%.2f', 100*$line/$total)."%\n");
 
 sub iso2utf {
   my ($s) = @_;
-  $s = encode('utf-8', decode('iso-8859-1', $s));
+  if ($encoding eq 'utf8') {
+    $s = encode($encoding, decode('iso-8859-1', $s));
+  }
+  else {
+    $s = decode('iso-8859-1', $s);
+  }
   return $s;
 }
 
