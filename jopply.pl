@@ -108,12 +108,15 @@ $curl->setopt(CURLOPT_URL, "$URL/matchning?lanid=$lanid"
   . "&nyckelord=$nyckelord&antalrader=9999");
 $retcode = $curl->perform;
 $decoded_json = decode_json($response_body);
+if ((keys $decoded_json)[0] eq 'Error') {
+  print Dumper $decoded_json;
+  exit 0;
+}
 
 my $total = 0;
 my $line = 0;
 my @annonsid = values $decoded_json->{'matchningslista'}{'matchningdata'};
-# Bug in Perl if using directly.
-foreach my $elem (@annonsid) {
+foreach my $elem (@annonsid) { # Bug in Perl if using directly.
   ++$total;
   $curl->setopt(CURLOPT_URL, "$URL/$elem->{'annonsid'}");
   if($ansokan_epostadress || $ansokan_webbadress) {
