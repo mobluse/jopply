@@ -45,7 +45,7 @@
 #    \______________________\/
 #
 # Mikael Bonnier
-#/////////////////////////////////////////////////////////////////////
+######################################################################
 
 use strict;
 use warnings;
@@ -54,10 +54,10 @@ use Time::HiRes qw(sleep);
 use Getopt::Long;
 use URI::Escape;
 use Encode qw(decode encode);
-use WWW::Curl::Easy;
-use JSON;
 use Data::Dumper;
 use Pod::Usage;
+use JSON;
+use WWW::Curl::Easy;
 
 my $encoding = $^O eq 'MSWin32' ? 'cp850' : 'utf8';
 if ($encoding ne 'utf8') {
