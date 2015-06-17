@@ -7,6 +7,7 @@ This is a very early release and everything will change.
 ### ./jopply.pl
 Alternatively,
 #### sudo apt-get update && sudo apt-get install libjson-perl cpanminus && sudo cpanm Furl
+### ./furl-jopply.pl
 
 ### How to install and run in Windows using ActivePerl:
 #### ppm install WWW-Curl --force
