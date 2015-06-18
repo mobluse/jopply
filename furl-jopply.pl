@@ -54,19 +54,16 @@ use warnings;
 use utf8;
 use Time::HiRes qw(sleep);
 use Getopt::Long;
-use URI::Escape;
 use Encode qw(decode encode);
 use Data::Dumper;
 use Pod::Usage;
+use URI::Escape;
 use JSON;
 #use WWW::Curl::Easy;
 use Furl;
+use 5.008001;
 
-my $encoding = $^O eq 'MSWin32' ? 'cp850' : 'utf8';
-if ($encoding ne 'utf8') {
-  binmode(STDOUT, ":encoding($encoding)" );
-  binmode(STDIN, ":encoding($encoding)" );
-}
+my $encoding = fix_encoding();
 
 my $help = 0;
 my $man = 0;
@@ -80,7 +77,7 @@ GetOptions('help|?' => \$help, man => \$man, verbose => \$verbose,
            'nyckelord|keyword=s' => \$nyckelord,
            'lanid:i' => \$lanid,
            'epostadress' => \$ansokan_epostadress,
-           'webbadress' => \$ansokan_webbplats,
+           'webbplats' => \$ansokan_webbplats,
            'annonsid=s' => \$annonsid)
   or pod2usage(2);
 if ($man) {
@@ -115,8 +112,9 @@ if ($lanid ne '' && $lanid == 0) {
   $response = $furl->get("$URL/soklista/lan");
   $decoded_json = decode_json($response->body);
   #print(Dumper $decoded_json);
-  foreach my $elem (values $decoded_json->{'soklista'}{'sokdata'}) {
-    printf "%2d; %s\n", $elem->{id}, iso2utf($elem->{namn});
+  my $lan = $decoded_json->{'soklista'}{'sokdata'};
+  foreach my $elem (@$lan) {
+    printf "%2d; %s\n", $elem->{id}, ansi2utf8($elem->{namn});
   }
   exit 0;
 }
@@ -134,8 +132,8 @@ if (!$decoded_json->{'matchningslista'}{'antal_sidor'}) {
 }
 my $total = 0;
 my $line = 0;
-my @annonsid = values $decoded_json->{'matchningslista'}{'matchningdata'};
-foreach my $elem (@annonsid) { # Bug in Perl if using directly.
+my @annonser = values $decoded_json->{'matchningslista'}{'matchningdata'};
+foreach my $elem (@annonser) { # Bug in Perl if using directly.
   ++$total;
   if($ansokan_epostadress || $ansokan_webbplats) {
     sleep 0.2;
@@ -151,7 +149,7 @@ foreach my $elem (@annonsid) { # Bug in Perl if using directly.
       print("$line; $elem->{'annonsid'}; $epostadress");
     }
     if ($ansokan_webbplats && $webbplats) {
-      $webbplats = iso2utf($webbplats);
+      $webbplats = ansi2utf8($webbplats);
       if ($b_line) {
         print("; $webbplats\n");
       }
@@ -173,7 +171,7 @@ foreach my $elem (@annonsid) { # Bug in Perl if using directly.
   }
   else {
     ++$line;
-    my $annonsrubrik = iso2utf($elem->{'annonsrubrik'});
+    my $annonsrubrik = ansi2utf8($elem->{'annonsrubrik'});
     print("$line; $elem->{'annonsid'}; $annonsrubrik\n");
     if ($verbose) {
       print(Dumper $elem);
@@ -182,7 +180,16 @@ foreach my $elem (@annonsid) { # Bug in Perl if using directly.
 }
 print("Total; $line/$total=".sprintf('%.2f', 100*$line/$total)."%\n");
 
-sub iso2utf {
+sub fix_encoding {
+  my $enc = $^O eq 'MSWin32' ? 'cp850' : 'utf8';
+  if ($enc ne 'utf8') {
+    binmode(STDOUT, ":encoding($enc)" );
+    binmode(STDIN, ":encoding($enc)" );
+  }
+  return $enc;
+}
+
+sub ansi2utf8 {
   my ($s) = @_;
   if ($encoding eq 'utf8') {
     $s = encode($encoding, decode('cp1252', $s));
