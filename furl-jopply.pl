@@ -122,7 +122,7 @@ if ($lanid ne '' && $lanid == 0) {
 $response = $furl->get("$URL/matchning?lanid=$lanid"
   . "&nyckelord=$nyckelord&antalrader=9999");
 $decoded_json = decode_json($response->body);
-if ((keys $decoded_json)[0] eq 'Error') {
+if ($decoded_json->{Error}) {
   print Dumper $decoded_json;
   exit 0;
 }
@@ -132,8 +132,8 @@ if (!$decoded_json->{'matchningslista'}{'antal_sidor'}) {
 }
 my $total = 0;
 my $line = 0;
-my @annonser = values $decoded_json->{'matchningslista'}{'matchningdata'};
-foreach my $elem (@annonser) { # Bug in Perl if using directly.
+my $annonser = $decoded_json->{'matchningslista'}{'matchningdata'};
+foreach my $elem (@$annonser) { # Bug in Perl if using directly.
   ++$total;
   if($ansokan_epostadress || $ansokan_webbplats) {
     sleep 0.2;
