@@ -89,39 +89,33 @@ if (($help || !$nyckelord) && !$annonsid
 }
 
 $nyckelord = join(' ', split(/,/, $nyckelord));
-if ($encoding ne 'utf8') {
-  $nyckelord = uri_escape_utf8($nyckelord);
-}
-else {
-  $nyckelord = uri_escape($nyckelord);
-}
+$nyckelord = uri_esc($nyckelord);
 
-my $furl = Furl->new(
-        headers => [ 'Accept' => 'application/json', 'Accept-Language' => 'sv' ],
-    );
+my $xurl = url_new();
 my $URL = "http://api.arbetsformedlingen.se/af/v0/platsannonser";
-my $response;
+my $response_body;
+my $retcode;
 my $decoded_json;
 if ($annonsid) {
-  $response = $furl->get("$URL/$annonsid");
-  $decoded_json = decode_json($response->body);
+  $response_body = url_get("$URL/$annonsid");
+  $decoded_json = decode_json($response_body);
   print Dumper $decoded_json;
   exit 0;
 }
 if ($lanid ne '' && $lanid == 0) {
-  $response = $furl->get("$URL/soklista/lan");
-  $decoded_json = decode_json($response->body);
+  $response_body = url_get("$URL/soklista/lan");
+  $decoded_json = decode_json($response_body);
   #print(Dumper $decoded_json);
   my $lan = $decoded_json->{'soklista'}{'sokdata'};
-  foreach my $elem (@$lan) {
+  foreach my $elem (@{$decoded_json->{'soklista'}{'sokdata'}}) {
     printf "%2d; %s\n", $elem->{id}, ansi2utf8($elem->{namn});
   }
   exit 0;
 }
 
-$response = $furl->get("$URL/matchning?lanid=$lanid"
+$response_body = url_get("$URL/matchning?lanid=$lanid"
   . "&nyckelord=$nyckelord&antalrader=9999");
-$decoded_json = decode_json($response->body);
+$decoded_json = decode_json($response_body);
 if ($decoded_json->{Error}) {
   print Dumper $decoded_json;
   exit 0;
@@ -133,12 +127,12 @@ if (!$decoded_json->{'matchningslista'}{'antal_sidor'}) {
 my $total = 0;
 my $line = 0;
 my $annonser = $decoded_json->{'matchningslista'}{'matchningdata'};
-foreach my $elem (@$annonser) { # Bug in Perl if using directly.
+foreach my $elem (@{$decoded_json->{'matchningslista'}{'matchningdata'}}) {
   ++$total;
   if($ansokan_epostadress || $ansokan_webbplats) {
     sleep 0.2;
-    $response = $furl->get("$URL/$elem->{'annonsid'}");
-    $decoded_json = decode_json($response->body);
+    $response_body = url_get("$URL/$elem->{'annonsid'}");
+    $decoded_json = decode_json($response_body);
     my $epostadress = $decoded_json->{'platsannons'}{'ansokan'}{'epostadress'};
     my $webbplats = $decoded_json->{'platsannons'}{'ansokan'}{'webbplats'};
     # According to the specification webbplats should be webbadress.
@@ -200,6 +194,27 @@ sub ansi2utf8 {
   return $s;
 }
 
+sub uri_esc {
+  my ($k) = @_;
+  if ($encoding ne 'utf8') {
+    $k = uri_escape_utf8($k);
+  }
+  else {
+    $k = uri_escape($k);
+  }
+  return $k;
+}
+
+sub url_get {
+  my ($u) = @_;
+  return $xurl->get($u)->body;
+}
+
+sub url_new {
+  return Furl->new(
+        headers => [ 'Accept' => 'application/json', 'Accept-Language' => 'sv' ],
+    );
+}
 __END__
 
 =head1 NAME
