@@ -59,12 +59,13 @@ use Time::HiRes qw(sleep);
 use Getopt::Long;
 use Encode qw(decode encode);
 use Data::Dumper;
+use lib "$ENV{HOME}/jopply-pm";
 use Pod::Usage;
 use URI::Escape;
 use JSON;
 #use WWW::Curl::Easy;
 #use Furl;
-use 5.008001;
+use 5.008008;
 
 my $encoding = fix_encoding();
 
@@ -217,6 +218,7 @@ sub url_get {
 sub url_new {
 }
 __END__
+=encoding utf8
 
 =head1 NAME
 
