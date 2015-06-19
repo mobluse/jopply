@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Furl-Jopply 2015-06-17 by M.O.B. as Perl command-line application.
+# Jopply-Furl 2015-06-19 by M.O.B. as Perl command-line application.
 # Copyright (C) 2015 by Mikael O. Bonnier, Lund, Sweden.
 # License: GNU AGPL v3 or later, https://gnu.org/licenses/agpl-3.0.txt
 # Donations are welcome to PayPal mikael.bonnier@gmail.com.
@@ -9,7 +9,7 @@
 #
 # How to install and run in Linux:
 # sudo apt-get update && sudo apt-get install libjson-perl cpanminus && sudo cpanm Furl
-# ./furl-jopply.pl
+# ./jopply-furl.pl
 #
 # How to install and run in Windows with ActivePerl:
 # ppm install Furl

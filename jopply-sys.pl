@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Furl-Jopply 2015-06-17 by M.O.B. as Perl command-line application.
+# Jopply-Sys 2015-06-17 by M.O.B. as Perl command-line application.
 # Copyright (C) 2015 by Mikael O. Bonnier, Lund, Sweden.
 # License: GNU AGPL v3 or later, https://gnu.org/licenses/agpl-3.0.txt
 # Donations are welcome to PayPal mikael.bonnier@gmail.com.
@@ -8,15 +8,18 @@
 # It was developed in Raspbian on Raspberry Pi 2.
 #
 # How to install and run in Linux:
-# sudo apt-get update && sudo apt-get install libjson-perl cpanminus && sudo cpanm Furl
-# ./furl-jopply.pl
+# sudo apt-get update && sudo apt-get install libjson-perl
+# ./jopply-sys.pl
 #
 # How to install and run in Windows with ActivePerl:
-# ppm install Furl
-# perl furl-jopply.pl
+# You need to have curl in the PATH.
+# perl jopply-sys.pl
 # Tested in Windows Vista on x86-32 and works with cp850.
 #
-# The advantage of Furl is that it is Pure Perl.
+# How to install and run in Windows with Git:
+# Git includes Perl and Curl, but you have to install the modules
+# Pod::Usage, URI::Escape, and JSON, manually.
+# ./jopply-sys.pl
 #
 # Revision history:
 # 2015-Jun: Alpha versions.
