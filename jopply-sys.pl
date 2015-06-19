@@ -60,7 +60,7 @@ use Pod::Usage;
 use URI::Escape;
 use JSON;
 #use WWW::Curl::Easy;
-use Furl;
+#use Furl;
 use 5.008001;
 
 my $encoding = fix_encoding();
