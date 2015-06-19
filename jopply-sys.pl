@@ -59,7 +59,7 @@ use Time::HiRes qw(sleep);
 use Getopt::Long;
 use Encode qw(decode encode);
 use Data::Dumper;
-use lib "$ENV{HOME}/jopply-pm";
+use lib ($ENV{HOME} ? $ENV{HOME} : '..') . '/jopply-pm';
 use Pod::Usage;
 use URI::Escape;
 use JSON;
