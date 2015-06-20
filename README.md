@@ -4,14 +4,14 @@ This is a very early release and everything will change. The rest of the
 text is in Swedish, because right now it only works for a Swedish web
 service. There is also very high unemployment in Sweden. Therefore we
 don't need more people here and it's better to educate those who already
-live here so they can fill these jobs. The only people we need from
-abroad to work here are those who create more jobs for those who already
-live here. Thus we try to minimize job applications from abroad by only
-providing this program in Swedish. There is also a lack of food in
-Sweden, since we produce less food than we eat, and that means we are
-importing food and this creates starvation in other parts of the world.
-One positive thing though is that we produce more electricity than we
-consume, due to the snow melting in the mountains.
+live here so they can fill these open positions. The only people we
+need from abroad to work here are those who create more jobs for those
+who already live here. Thus we try to minimize job applications from
+abroad by only providing this program in Swedish. There is also a lack
+of food in Sweden, since we produce less food than we eat, and that
+means we are importing food and this creates starvation in other parts
+of the world. One positive thing though is that we produce more
+electricity than we consume, due to the snow melting in the mountains.
 
 [sv] Jopply hjälper dig att söka jobb. Detta är en mycket tidig version
 och allt kommer att ändras. Det finns tre olika varianter i hopp om att
@@ -22,16 +22,19 @@ nätverkskommunikationen sker.
 Perl och Curl ingår i Git Bash, men du måste installera vissa Perl-moduler
 (Pod::Usage, URI::Escape och JSON), men det finns ett installationsprogram
 som gör detta automatiskt. Starta Git Bash och ge dessa kommandon:
-#### git clone https://github.com/mobluse/jopply.git
-#### cd jopply
+#### `git clone https://github.com/mobluse/jopply`
+#### `cd jopply`
 Du behöver oftast bara skriva de första tecknen i ett kommando sedan
 kan du trycka på Tab och då fyller datorn i resten.
-#### ./install-in-git-bash.sh
-#### ./jopply
-Testat i Git Bash för Windows på x86-32. De övriga varianterna av
-Jopply fungerar inte i Git Bash för Windows.
+#### `./install-in-git-bash.sh`
+#### `./jopply`
+Testat i Git Bash för Windows på x86-32. Denna teknik fungerar nog även
+med Git för Mac OS X, ty det har Curl, men där kan man även installera
+modulerna med CPAN. Det finns handledningar om hur man använder CPAN i
+Mac OS X. De övriga varianterna av Jopply fungerar inte i Git Bash för
+Windows.
 
-### Hur man installerar i Linux (t.ex. Ubuntu, Debian, Raspbian):
+### Hur man installerar i Linux (t.ex. [Ubuntu](http://ubuntu-se.org/drupal/download "Ladda ner Ubuntu"), [Debian](https://www.debian.org/index.sv.html "Debian"), [Raspbian](https://www.raspberrypi.org/downloads/ "Raspbian Downloads")):
 #### sudo apt-get update && sudo apt-get install libjson-perl
 #### ./jopply
 Alternativt,
@@ -42,7 +45,10 @@ Alternativt,
 #### ./jopply-furl.pl
 Testat i Raspbian på Raspberry Pi och Ubuntu på x86-32.
 
-### Hur man installerar och kör i Windows med ActivePerl:
+### Hur man installerar och kör i Windows med [ActivePerl]( http://www.activestate.com/activeperl/downloads "ActivePerl Downloads"):
+Hämta ner zip-filen och packa upp om du inte har Git. Starta
+Kommandotolken. Möjligen behöver du först köra enbart `ppm` om du aldrig
+kört detta tidigare för att den skall synka.
 #### ppm install Furl
 #### perl jopply-furl.pl
 Alternativt,
@@ -51,12 +57,13 @@ Jag behövde använda --force p.g.a. att jag har flera repositorier, men
 det behöver kanske inte du.
 #### perl jopply-curl.pl
 Alternativt (förutsatt att du har curl i PATH),
-#### perl jopply-sys.pl
-Testat i Windows Vista Command/MS-DOS-prompt på x86-32 och fungerar med
-cp850 (vilket är standardvärdet). Dock har Command nackdelen att man
-inte kan rulla tillbaka och se långa utskrifter. Det kan dock lösas
-genom att lägga till ' | more' efter kommandot. Då trycker man på
-mellanslag för att se nästa sida. Detta fungerar även i Linux.
+#### perl jopply
+Testat i Windows Vista Kommandotolken/MS-DOS-prompt på x86-32 och
+fungerar med teckenkodningen cp850 (vilket är standardvärdet). Dock har
+Kommandotolken nackdelen att man inte kan rulla tillbaka och se långa
+utskrifter. Det kan dock lösas genom att lägga till ` | more` efter
+kommandot. Då trycker man på mellanslag för att se nästa sida. Detta
+fungerar även i Linux.
 
 [en] The command-line arguments are also in
 Swedish and are the same as in the specification from
