@@ -2,7 +2,7 @@
 Jopply (a portmanteau of job and apply) helps applying for jobs.
 This is a very early release and everything will change. The rest of the
 text is in Swedish, because right now it only works for a Swedish web
-service. There is also high unemployment in Sweden.
+service. There is also very high unemployment in Sweden.
 
 Jopply hjälper dig att söka jobb. Detta är en mycket tidig version och
 allt kommer att ändras. Det finns tre olika varianter i hopp om att
@@ -36,11 +36,11 @@ Testat i Raspbian på Raspberry Pi och Ubuntu på x86-32.
 Alternativt,
 #### ppm install WWW-Curl --force
 Jag behövde använda --force p.g.a. att jag har flera repositorier, men
-du måste kanske inte göra det.
+det behöver kanske inte du.
 #### perl jopply-curl.pl
 Alternativt (förutsatt att du har curl i PATH),
 #### perl jopply-sys.pl
-Testet i Windows Vista Command/MS-DOS-prompt på x86-32 och fungerar med
+Testat i Windows Vista Command/MS-DOS-prompt på x86-32 och fungerar med
 cp850 (vilket är standardvärdet).
 
 [en] The command-line arguments are also in
@@ -48,11 +48,13 @@ Swedish and are the same as in the specification from
 Arbetsförmedlingen (Swedish government organisation), but English
 arguments will be added in the future.
 
-Kommandoradsargumenten är samma som i specifikationen från Arbetsförmedlingen.
+Kommandoradsargumenten är samma som i specifikationen från
+Arbetsförmedlingen förutom att man även kan använda --keyword.
 
 ## Exempel
-för Linux där valfri jopply-X.pl länkats till jopply. I Windows kan man
-göra en bat-fil.
+för Linux där valfri jopply-X.pl länkats till jopply eller att man har
+ett shellskript som startar jopply. I Windows kan man göra en bat-fil
+som anropar valfri jopply-X.pl.
 #### Visa den inbyggda hjälpen!
 ##### ./jopply --help
 
