@@ -13,7 +13,7 @@ importing food and this creates starvation in other parts of the world.
 One positive thing though is that we produce more electricity than we
 consume, due to the snow melting in the mountains.
 
-Jopply hjälper dig att söka jobb. Detta är en mycket tidig version och
+[sv] Jopply hjälper dig att söka jobb. Detta är en mycket tidig version och
 allt kommer att ändras. Det finns tre olika varianter i hopp om att
 någon skall fungera. De skiljer sig med avseende på hur
 nätverkskommunikationen sker.
@@ -61,11 +61,10 @@ mellanslag för att se nästa sida. Detta fungerar även i Linux.
 
 [en] The command-line arguments are also in
 Swedish and are the same as in the specification from
-Arbetsförmedlingen (Swedish government organisation), but English
-arguments will be added in the future.
+Arbetsförmedlingen (Swedish government organisation).
 
-Kommandoradsargumenten är samma som i specifikationen från
-Arbetsförmedlingen förutom att man även kan använda --keyword.
+[sv] Kommandoradsargumenten är samma som i specifikationen från
+Arbetsförmedlingen.
 
 ## Exempel
 för Linux där valfri jopply-X.pl länkats till jopply eller att man har
@@ -84,10 +83,10 @@ som anropar valfri jopply-X.pl.
 ##### ./jopply --nyckelord=CAD --lanid=1 --epost
 
 #### Visa annonsid och webbplats för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via webbplatser!
-##### ./jopply --keyword=CAD --lanid=1 --web
+##### ./jopply --nyckelord=CAD --lanid=1 --web
 
 #### Visa annonsid och webbplats eller e-postadress för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via webbplatser eller e-post!
-##### ./jopply -k=CAD -l=1 -w -e
+##### ./jopply -n=CAD -l=1 -w -e
 
 #### Visa annons med annons-ID!
 ##### ./jopply --annonsid=2621881
