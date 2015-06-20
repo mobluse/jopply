@@ -5,13 +5,14 @@ text is in Swedish, because right now it only works for a Swedish web
 service. There is also very high unemployment in Sweden. Therefore we
 don't need more people here and it's better to educate those who already
 live here so they can fill these open positions. The only people we
-need from abroad to work here are those who create more jobs for those
-who already live here. Thus we try to minimize job applications from
-abroad by only providing this program in Swedish. There is also a lack
-of food in Sweden, since we produce less food than we eat, and that
-means we are importing food and this creates starvation in other parts
-of the world. One positive thing though is that we produce more
-electricity than we consume, due to the snow melting in the mountains.
+need from non-neighbouring countries to work here are those who create
+more jobs for those who already live here. Thus we try to minimize job
+applications from abroad by only providing this program in Swedish.
+There is also a lack of food in Sweden, since we produce less food than
+we eat, and that means we are importing food and this creates starvation
+in other parts of the world. One positive thing though is that we
+produce more electricity than we consume, due to the snow melting in
+the mountains, but this is mostly in the northern parts.
 
 [sv] Jopply hjälper dig att söka jobb. Detta är en mycket tidig version
 och allt kommer att ändras. Det finns tre olika varianter i hopp om att
