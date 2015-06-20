@@ -36,29 +36,29 @@ Mac OS X. De övriga varianterna av Jopply fungerar inte i Git Bash för
 Windows.
 
 ### Hur man installerar i Linux (t.ex. [Ubuntu](http://ubuntu-se.org/drupal/download "Ladda ner Ubuntu"), [Debian](https://www.debian.org/index.sv.html "Debian"), [Raspbian](https://www.raspberrypi.org/downloads/ "Raspbian Downloads")):
-#### sudo apt-get update && sudo apt-get install libjson-perl
-#### ./jopply
+#### `sudo apt-get update && sudo apt-get install libjson-perl`
+#### `./jopply`
 Alternativt,
-#### sudo apt-get update && sudo apt-get install libjson-perl libwww-curl-perl
-#### ./jopply-curl.pl
+#### `sudo apt-get update && sudo apt-get install libjson-perl libwww-curl-perl`
+#### `./jopply-curl.pl`
 Alternativt,
-#### sudo apt-get update && sudo apt-get install libjson-perl cpanminus && sudo cpanm Furl
-#### ./jopply-furl.pl
+#### `sudo apt-get update && sudo apt-get install libjson-perl cpanminus && sudo cpanm Furl`
+#### `./jopply-furl.pl`
 Testat i Raspbian på Raspberry Pi och Ubuntu på x86-32.
 
 ### Hur man installerar och kör i Windows med [ActivePerl]( http://www.activestate.com/activeperl/downloads "ActivePerl Downloads"):
 Hämta ner zip-filen och packa upp om du inte har Git. Starta
 Kommandotolken. Möjligen behöver du först köra enbart `ppm` om du aldrig
 kört detta tidigare för att den skall synka.
-#### ppm install Furl
-#### perl jopply-furl.pl
+#### `ppm install Furl`
+#### `perl jopply-furl.pl`
 Alternativt,
-#### ppm install WWW-Curl --force
+#### `ppm install WWW-Curl --force`
 Jag behövde använda --force p.g.a. att jag har flera repositorier, men
 det behöver kanske inte du.
-#### perl jopply-curl.pl
+#### `perl jopply-curl.pl`
 Alternativt (förutsatt att du har curl i PATH),
-#### perl jopply
+#### `perl jopply`
 Testat i Windows Vista Kommandotolken/MS-DOS-prompt på x86-32 och
 fungerar med teckenkodningen cp850 (vilket är standardvärdet). Dock har
 Kommandotolken nackdelen att man inte kan rulla tillbaka och se långa
@@ -78,22 +78,22 @@ för Linux där valfri jopply-X.pl länkats till jopply eller att man har
 ett shellskript som startar jopply. I Windows kan man göra en bat-fil
 som anropar valfri jopply-X.pl.
 #### Visa den inbyggda hjälpen!
-##### ./jopply --help
+##### `./jopply --help`
 
 #### Visa alla län med läns-ID!
-##### ./jopply --lanid
+##### `./jopply --lanid`
 
 #### Visa annonsid för alla jobbannonser i Stockholms län som innehåller CAD och 3D!
-##### ./jopply --n=CAD,3D --l=1 --verbose
+##### `./jopply --n=CAD,3D --l=1 --verbose`
 
 #### Visa annons-ID och e-postadress för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via e-post!
-##### ./jopply --nyckelord=CAD --lanid=1 --epost
+##### `./jopply --nyckelord=CAD --lanid=1 --epost`
 
 #### Visa annonsid och webbplats för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via webbplatser!
-##### ./jopply --nyckelord=CAD --lanid=1 --web
+##### `./jopply --nyckelord=CAD --lanid=1 --web`
 
 #### Visa annonsid och webbplats eller e-postadress för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via webbplatser eller e-post!
-##### ./jopply -n=CAD -l=1 -w -e
+##### `./jopply -n=CAD -l=1 -w -e`
 
 #### Visa annons med annons-ID!
-##### ./jopply --annonsid=2621881
+##### `./jopply --annonsid=2621881`
