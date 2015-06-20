@@ -69,6 +69,9 @@ utskrifter. Det kan dock lösas genom att lägga till ` | more` efter
 kommandot. Då trycker man på mellanslag för att se nästa sida. Detta
 fungerar även i Linux.
 
+Har man hämtat ner Jopply med Git, är det väldigt lätt att uppdatera, ty
+man ger bara kommandort `git pull` i katalogen jopply.
+
 [en] The command-line arguments are also in
 Swedish and are the same as in the specification from
 Arbetsförmedlingen (Swedish government organisation).
