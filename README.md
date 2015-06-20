@@ -2,26 +2,39 @@
 Jopply (a portmanteau of job and apply) helps applying for jobs.
 This is a very early release and everything will change. The rest of the
 text is in Swedish, because right now it only works for a Swedish web
-service. There is also very high unemployment in Sweden.
+service. There is also very high unemployment in Sweden. Therefore we
+don't need more people here and it's better to educate those who already
+live here so they can fill these jobs. The only people we need from
+abroad to work here are those who create more jobs for those who already
+live here. Thus we try to minimize job applications from abroad by only
+providing this program in Swedish. There is also a lack of food in
+Sweden, since we produce less food than we eat, and that means we are
+importing food and this creates starvation in other parts of the world.
+One positive thing though is that we produce more electricity than we
+consume, due to the snow melting in the mountains.
 
 Jopply hjälper dig att söka jobb. Detta är en mycket tidig version och
 allt kommer att ändras. Det finns tre olika varianter i hopp om att
-någon skall fungera.
+någon skall fungera. De skiljer sig med avseende på hur
+nätverkskommunikationen sker.
 
 ### Hur man installerar och kör i Windows med Git Bash:
-Git Bash kommer med Perl och Curl, men du måste installera modulerna
-Pod::Usage, URI::Escape och JSON, men man kan klona.
+Perl och Curl ingår i Git Bash, men du måste installera vissa Perl-moduler
+(Pod::Usage, URI::Escape och JSON), men det finns ett installationsprogram
+som gör detta automatiskt.
 Starta Git Bash och ge dessa kommandon:
 #### git clone https://github.com/mobluse/jopply.git
-#### git clone https://github.com/mobluse/jopply-pm.git
 #### cd jopply
-#### ./jopply-sys.pl
+Du behöver oftast bara skriva de första tecknen i ett kommando sedan
+kan du trycka på Tab och då fyller datorn i resten.
+#### ./install-in-git-bash.sh
+#### ./jopply
 Testat i Git Bash för Windows på x86-32. De övriga varianterna av
 Jopply fungerar inte i Git Bash för Windows.
 
 ### Hur man installerar i Linux (t.ex. Ubuntu, Debian, Raspbian):
 #### sudo apt-get update && sudo apt-get install libjson-perl
-#### ./jopply-sys.pl
+#### ./jopply
 Alternativt,
 #### sudo apt-get update && sudo apt-get install libjson-perl libwww-curl-perl
 #### ./jopply-curl.pl
@@ -41,7 +54,10 @@ det behöver kanske inte du.
 Alternativt (förutsatt att du har curl i PATH),
 #### perl jopply-sys.pl
 Testat i Windows Vista Command/MS-DOS-prompt på x86-32 och fungerar med
-cp850 (vilket är standardvärdet).
+cp850 (vilket är standardvärdet). Dock har Command nackdelen att man
+inte kan rulla tillbaka och se långa utskrifter. Det kan dock lösas
+genom att lägga till ' | more' efter kommandot. Då trycker man på
+mellanslag för att se nästa sida. Detta fungerar även i Linux.
 
 [en] The command-line arguments are also in
 Swedish and are the same as in the specification from
