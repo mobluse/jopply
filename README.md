@@ -13,16 +13,15 @@ importing food and this creates starvation in other parts of the world.
 One positive thing though is that we produce more electricity than we
 consume, due to the snow melting in the mountains.
 
-[sv] Jopply hjälper dig att söka jobb. Detta är en mycket tidig version och
-allt kommer att ändras. Det finns tre olika varianter i hopp om att
+[sv] Jopply hjälper dig att söka jobb. Detta är en mycket tidig version
+och allt kommer att ändras. Det finns tre olika varianter i hopp om att
 någon skall fungera. De skiljer sig med avseende på hur
 nätverkskommunikationen sker.
 
-### Hur man installerar och kör i Windows med Git Bash:
+### Hur man installerar och kör i Windows med [Git Bash](https://git-scm.com/downloads "Git Downloads")
 Perl och Curl ingår i Git Bash, men du måste installera vissa Perl-moduler
 (Pod::Usage, URI::Escape och JSON), men det finns ett installationsprogram
-som gör detta automatiskt.
-Starta Git Bash och ge dessa kommandon:
+som gör detta automatiskt. Starta Git Bash och ge dessa kommandon:
 #### git clone https://github.com/mobluse/jopply.git
 #### cd jopply
 Du behöver oftast bara skriva de första tecknen i ett kommando sedan
