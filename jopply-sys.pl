@@ -34,25 +34,24 @@ use Time::HiRes qw(sleep);
 use Getopt::Long;
 use Encode qw(decode encode);
 use Data::Dumper;
-use lib ($ENV{HOME} ? $ENV{HOME} : '..') . '/jopply-pm';
+use lib ( $ENV{HOME} ? $ENV{HOME} : '..' ) . '/jopply-pm';
 use Pod::Usage;
 use URI::Escape;
 use JSON;
-#use WWW::Curl::Easy;
-#use Furl;
 use 5.008008;
 
 require 'libjopply.pl';
 
 sub url_get {
-  my ($u) = @_;
-  my $AL = 'Accept-Language:sv';
-  return `curl -sH $AL "$u"`;
+    my ($u) = @_;
+    my $AL = 'Accept-Language:sv';
+    return `curl -sH $AL "$u"`;
 }
 
-sub url_new {}
+sub url_new { }
 
 __END__
+
 =encoding utf8
 
 =head1 NAME

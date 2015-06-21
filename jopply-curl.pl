@@ -33,7 +33,6 @@ use Pod::Usage;
 use URI::Escape;
 use JSON;
 use WWW::Curl::Easy;
-#use Furl;
 use 5.008008;
 
 require 'libjopply.pl';
@@ -42,22 +41,23 @@ our $response_body;
 our $retcode;
 
 sub url_get {
-  my ($u) = @_;
-  $xurl->setopt(CURLOPT_URL, $u);
-  $response_body = '';
-  $retcode = $xurl->perform;
-  return $response_body;
+    my ($u) = @_;
+    $xurl->setopt( CURLOPT_URL, $u );
+    $response_body = '';
+    $retcode       = $xurl->perform;
+    return $response_body;
 }
 
 sub url_new {
-  my $c = WWW::Curl::Easy->new;
-  $c->setopt(CURLOPT_HEADER, 0);
-  my @H = ('Accept-Language:sv');
-  $c->setopt(CURLOPT_HTTPHEADER, \@H);
-  $c->setopt(CURLOPT_WRITEDATA, \$response_body);
-  return $c;
+    my $c = WWW::Curl::Easy->new;
+    $c->setopt( CURLOPT_HEADER, 0 );
+    my @H = ('Accept-Language:sv');
+    $c->setopt( CURLOPT_HTTPHEADER, \@H );
+    $c->setopt( CURLOPT_WRITEDATA,  \$response_body );
+    return $c;
 }
 __END__
+
 =encoding utf8
 
 =head1 NAME

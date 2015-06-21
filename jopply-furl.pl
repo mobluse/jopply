@@ -34,7 +34,6 @@ use Data::Dumper;
 use Pod::Usage;
 use URI::Escape;
 use JSON;
-#use WWW::Curl::Easy;
 use Furl;
 use 5.008008;
 
@@ -42,16 +41,16 @@ require 'libjopply.pl';
 our $xurl;
 
 sub url_get {
-  my ($u) = @_;
-  return $xurl->get($u)->body;
+    my ($u) = @_;
+    return $xurl->get($u)->body;
 }
 
 sub url_new {
-  return Furl->new(
-        headers => [ 'Accept' => 'application/json', 'Accept-Language' => 'sv' ],
-    );
+    return Furl->new( headers =>
+            [ 'Accept' => 'application/json', 'Accept-Language' => 'sv' ], );
 }
 __END__
+
 =encoding utf8
 
 =head1 NAME
