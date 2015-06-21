@@ -41,6 +41,16 @@
 ######################################################################
 
 my $encoding = fix_encoding();
+$Data::Dumper::Useqq = 1;
+
+{
+    no warnings 'redefine';
+
+    sub Data::Dumper::qquote {
+        my $s = shift;
+        return "'" . ansi2utf8($s) . "'";
+    }
+}
 
 my $help                = 0;
 my $man                 = 0;
@@ -98,8 +108,7 @@ if ( $lanid ne '' && $lanid == 0 ) {
 }
 
 $response_body = url_get(
-    "$URL/matchning?lanid=$lanid"
-    . "&nyckelord=$nyckelord&antalrader=9999" );
+    "$URL/matchning?lanid=$lanid" . "&nyckelord=$nyckelord&antalrader=9999" );
 $decoded_json = decode_json($response_body);
 if ( $decoded_json->{Error} ) {
     print Dumper $decoded_json;
@@ -112,8 +121,7 @@ if ( !$decoded_json->{'matchningslista'}{'antal_sidor'} ) {
 my $total    = 0;
 my $line     = 0;
 my $annonser = $decoded_json->{'matchningslista'}{'matchningdata'};
-for my $elem ( @{ $decoded_json->{'matchningslista'}{'matchningdata'} } )
-{
+for my $elem ( @{ $decoded_json->{'matchningslista'}{'matchningdata'} } ) {
     ++$total;
     if ( $ansokan_epostadress || $ansokan_webbplats ) {
         sleep 0.2;
@@ -129,17 +137,17 @@ for my $elem ( @{ $decoded_json->{'matchningslista'}{'matchningdata'} } )
         if ( $ansokan_epostadress && $epostadress ) {
             $b_line = 1;
             ++$line;
-            print("$line; $elem->{'annonsid'}; $epostadress");
+            print "$line; $elem->{'annonsid'}; $epostadress";
         }
         if ( $ansokan_webbplats && $webbplats ) {
             $webbplats = ansi2utf8($webbplats);
             if ($b_line) {
-                print("; $webbplats\n");
+                print "; $webbplats\n";
             }
             else {
                 $b_line = 1;
                 ++$line;
-                print("$line; $elem->{'annonsid'}; ; $webbplats\n");
+                print "$line; $elem->{'annonsid'}; ; $webbplats\n";
             }
         }
         else {
@@ -148,16 +156,17 @@ for my $elem ( @{ $decoded_json->{'matchningslista'}{'matchningdata'} } )
             }
         }
         if ( $b_line && $verbose ) {
-            print( Dumper $elem );
-            print( Dumper $decoded_json->{'platsannons'}{'ansokan'} );
+            print Dumper $elem;
+            print Dumper $decoded_json->{'platsannons'}{'ansokan'};
         }
     }
     else {
         ++$line;
         my $annonsrubrik = ansi2utf8( $elem->{'annonsrubrik'} );
-        print("$line; $elem->{'annonsid'}; $annonsrubrik\n");
+        my $kommunnamn   = ansi2utf8( $elem->{'kommunnamn'} );
+        print "$line; $elem->{'annonsid'}; $annonsrubrik; $kommunnamn\n";
         if ($verbose) {
-            print( Dumper $elem );
+            print Dumper $elem;
         }
     }
 }
@@ -168,8 +177,8 @@ print(    "Total; $line/$total="
 sub fix_encoding {
     my $enc = $^O eq 'MSWin32' ? 'cp850' : 'utf8';
     if ( $enc ne 'utf8' ) {
-        binmode( STDOUT, ":encoding($enc)" );
-        binmode( STDIN,  ":encoding($enc)" );
+        binmode STDOUT, ":encoding($enc)";
+        binmode STDIN,  ":encoding($enc)";
     }
     return $enc;
 }
