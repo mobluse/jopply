@@ -48,6 +48,8 @@ $Data::Dumper::Useqq = 1;
 
     sub Data::Dumper::qquote {
         my $s = shift;
+
+        #return "'$s'"
         return "'" . ansi2utf8($s) . "'";
     }
 }
@@ -185,11 +187,16 @@ sub fix_encoding {
 
 sub ansi2utf8 {
     my ($s) = @_;
-    if ( $encoding eq 'utf8' ) {
-        $s = encode( $encoding, decode( 'cp1252', $s ) );
+    my $tmp;
+    eval { $tmp = decode( 'cp1252', $s ); };
+    if ($@) {
+        warn "caught error: $@";
     }
     else {
-        $s = decode( 'cp1252', $s );
+        $s = $tmp;
+    }
+    if ( $encoding eq 'utf8' ) {
+        $s = encode( $encoding, $s );
     }
     return $s;
 }
