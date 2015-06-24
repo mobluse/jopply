@@ -1,9 +1,9 @@
 #!/bin/sh
-./jopply-sys.pl
-./jopply-sys.pl --lanid
-./jopply-sys.pl -n=lärare,cad -l=12
-./jopply-sys.pl --nyckelord=lärare,cad --lanid=12 --epost --verbose
-./jopply-sys.pl -k=lärare,cad -l=12 -w
-./jopply-sys.pl -k=lärare,cad -l=12 -w -e
-./jopply-sys.pl -a=2621881
-./jopply-sys.pl --help
+perl jopply-sys.pl
+perl jopply-sys.pl --lanid
+perl jopply-sys.pl -n=lärare,cad -l=12
+perl jopply-sys.pl --nyckelord=lärare,cad --lanid=12 --epost --verbose
+perl jopply-sys.pl -k=lärare,cad -l=12 -w
+perl jopply-sys.pl -k=lärare,cad -l=12 -w -e
+perl jopply-sys.pl -a=2621881
+perl jopply-sys.pl --help
