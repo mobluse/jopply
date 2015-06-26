@@ -59,8 +59,8 @@ my $man                 = 0;
 my $verbose             = 0;
 my $nyckelord           = '';
 my $lanid               = '';
-my $ansokan_epostadress = '';
-my $ansokan_webbplats   = '';
+my $has_epostadress = '';
+my $has_webbplats   = '';
 my $annonsid            = '';
 GetOptions(
     'help|?'              => \$help,
@@ -68,8 +68,8 @@ GetOptions(
     verbose               => \$verbose,
     'nyckelord|keyword=s' => \$nyckelord,
     'lanid:i'             => \$lanid,
-    'epostadress'         => \$ansokan_epostadress,
-    'webbplats'           => \$ansokan_webbplats,
+    'epostadress'         => \$has_epostadress,
+    'webbplats'           => \$has_webbplats,
     'annonsid=s'          => \$annonsid
 ) or pod2usage(2);
 
@@ -91,8 +91,9 @@ my $URL = "http://api.arbetsformedlingen.se/af/v0/platsannonser";
 our $response_body;
 our $retcode;
 my $decoded_json;
+mkdir ad;
 if ($annonsid) {
-    $response_body = url_get("$URL/$annonsid");
+    $response_body = get_ad($annonsid);
     $decoded_json  = decode_json($response_body);
     print Dumper $decoded_json;
     exit 0;
@@ -125,9 +126,9 @@ my $line     = 0;
 my $annonser = $decoded_json->{'matchningslista'}{'matchningdata'};
 for my $elem ( @{ $decoded_json->{'matchningslista'}{'matchningdata'} } ) {
     ++$total;
-    if ( $ansokan_epostadress || $ansokan_webbplats ) {
+    if ( $has_epostadress || $has_webbplats ) {
         sleep 0.2;
-        $response_body = url_get("$URL/$elem->{'annonsid'}");
+        $response_body = get_ad($elem->{'annonsid'});
         $decoded_json  = decode_json($response_body);
         my $epostadress
             = $decoded_json->{'platsannons'}{'ansokan'}{'epostadress'};
@@ -136,12 +137,12 @@ for my $elem ( @{ $decoded_json->{'matchningslista'}{'matchningdata'} } ) {
 
         # According to the specification webbplats should be webbadress.
         my $b_line = 0;
-        if ( $ansokan_epostadress && $epostadress ) {
+        if ( $has_epostadress && $epostadress ) {
             $b_line = 1;
             ++$line;
             print "$line; $elem->{'annonsid'}; $epostadress";
         }
-        if ( $ansokan_webbplats && $webbplats ) {
+        if ( $has_webbplats && $webbplats ) {
             $webbplats = ansi2utf8($webbplats);
             if ($b_line) {
                 print "; $webbplats\n";
@@ -210,6 +211,23 @@ sub uri_esc {
         $k = uri_escape($k);
     }
     return $k;
+}
+
+sub get_ad {
+    my ($ad) = @_;
+    if (-f "ad/$ad.js") {
+        open INFILE, '<', "ad/$ad.js";
+        $body = join('', <INFILE>);
+        close INFILE;
+    }
+    else {
+        warn "Creating ad/$ad.js\n";
+        $body = url_get("$URL/$ad");
+        open OUTFILE, '>', "ad/$ad.js";
+        print OUTFILE $body;
+        close OUTFILE;
+    }
+    return $body;
 }
 
 1;
