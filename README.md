@@ -19,18 +19,19 @@ som gör detta automatiskt. Starta Git Bash och ge dessa kommandon:
 Du behöver oftast bara skriva de första tecknen i ett kommando sedan
 kan du trycka på Tab och då fyller datorn i resten.
 #### `./install-in-git-bash.sh`
-#### `./jopply`
+#### `./jopply.sh`
 Testat i Git Bash för Windows på x86-32. Denna teknik fungerar nog även
 med Git för Mac OS X, ty det har Curl, men där kan man även installera
 modulerna med CPAN. Det finns handledningar om hur man använder CPAN i
 Mac OS X. De övriga varianterna av Jopply fungerar inte i Git Bash för
-Windows.
+Windows. Denna teknik fungerar även på One.com via SSH, men då måste man
+skriva `sh install-in-git-bash.sh` och `sh jopply.sh`.
 
 ### Hur man installerar i Linux (t.ex. [Ubuntu](http://ubuntu-se.org/drupal/download "Ladda ner Ubuntu"), [Debian](https://www.debian.org/index.sv.html "Debian"), [Raspbian](https://www.raspberrypi.org/downloads/ "Raspbian Downloads")):
 Hämta ner zip-filen och packa upp om du inte har Git. Byt katalog till
 där Jopply packades upp eller hämtades ner.
 #### `sudo apt-get update && sudo apt-get install libjson-perl`
-#### `./jopply`
+#### `./jopply.sh`
 Alternativt,
 #### `sudo apt-get update && sudo apt-get install libjson-perl libwww-curl-perl`
 #### `./jopply-curl.pl`
@@ -52,7 +53,7 @@ Jag behövde använda --force p.g.a. att jag har flera repositorier, men
 det behöver kanske inte du.
 #### `perl jopply-curl.pl`
 Alternativt (förutsatt att du har curl i PATH),
-#### `jopply`
+#### `jopply.bat`
 Testat i Windows Vista Kommandotolken/MS-DOS-prompt på x86-32 och
 fungerar med teckenkodningen cp850 (vilket är standardvärdet). Dock har
 Kommandotolken nackdelen att man inte kan rulla tillbaka och se långa
@@ -60,8 +61,9 @@ utskrifter. Det kan dock lösas genom att lägga till ` | more` efter
 kommandot. Då trycker man på mellanslag för att se nästa sida. Detta
 fungerar även i Linux.
 
-Har man hämtat ner Jopply med Git, är det väldigt lätt att uppdatera, ty
-man ger bara kommandort `git pull` i katalogen jopply.
+Har man hämtat ner Jopply med Git, är det väldigt lätt att uppdatera
+till senaste versionen, ty man ger bara kommandort `./update.sh` eller
+`sh update.sh` i katalogen jopply.
 
 [en] The command-line arguments are also in
 Swedish and are the same as in the specification from
@@ -73,25 +75,26 @@ Arbetsförmedlingen.
 ## Exempel
 för Linux där valfri jopply-X.pl länkats till jopply eller att man har
 ett shellskript som startar jopply. I Windows kan man göra en bat-fil
-som anropar valfri jopply-X.pl. Det följer med exempel på jopply
-(Ash-skript) och jopply.bat som startar jopply-sys.pl.
+som anropar valfri jopply-X.pl. Det följer med exempel på jopply.sh
+(Ash-skript) och jopply.bat som startar jopply-sys.pl. Alla
+växlar kan förkortas, men de måste vara unika.
 #### Visa den inbyggda hjälpen!
-##### `./jopply --help`
+##### `./jopply.sh --help`
 
 #### Visa alla län med läns-ID!
-##### `./jopply --lanid`
+##### `./jopply.sh --lanid`
 
-#### Visa annonsid för alla jobbannonser i Stockholms län som innehåller CAD och 3D!
-##### `./jopply --n=CAD,3D --l=1 --verbose`
+#### Visa annonsid och rubrik för alla jobbannonser i Stockholms län som innehåller CAD och 3D!
+##### `./jopply.sh --nyckelord=CAD,3D --l=1 --verbose`
 
 #### Visa annons-ID och e-postadress för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via e-post!
-##### `./jopply --nyckelord=CAD --lanid=1 --epost`
+##### `./jopply.sh --nyckelord=CAD --lanid=1 --epost`
 
-#### Visa annonsid och webbplats för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via webbplatser!
-##### `./jopply --nyckelord=CAD --lanid=1 --web`
+#### Visa annonsid och webbplats för jobbannonser i Stockholms län som innehåller CAD och som är markerade som sökbara via webbplats!
+##### `./jopply.sh --nyckelord=CAD --lanid=1 --webb`
 
 #### Visa annonsid och webbplats eller e-postadress för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via webbplatser eller e-post!
-##### `./jopply -n=CAD -l=1 -w -e`
+##### `./jopply.sh -n=CAD -l=1 -w -e`
 
 #### Visa annons med annons-ID!
-##### `./jopply --annonsid=2621881`
+##### `./jopply.sh --annonsid=2621881`
