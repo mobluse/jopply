@@ -23,9 +23,9 @@ kan du trycka på Tab och då fyller datorn i resten.
 Testat i Git Bash för Windows på x86-32. Denna teknik fungerar nog även
 med Git för Mac OS X, ty det har Curl, men där kan man även installera
 modulerna med CPAN. Det finns handledningar om hur man använder CPAN i
-Mac OS X. De övriga varianterna av Jopply fungerar inte i Git Bash för
-Windows. Denna teknik fungerar även på One.com via SSH, men då måste man
-skriva `sh install-in-git-bash.sh` och `sh jopply.sh`.
+Mac OS X. Denna teknik fungerar även på One.com via SSH, men då måste
+man skriva `sh install-in-git-bash.sh` och `sh jopply.sh`. De övriga
+varianterna av Jopply fungerar inte i Git Bash för Windows.
 
 ### Hur man installerar i Linux (t.ex. [Ubuntu](http://ubuntu-se.org/drupal/download "Ladda ner Ubuntu"), [Debian](https://www.debian.org/index.sv.html "Debian"), [Raspbian](https://www.raspberrypi.org/downloads/ "Raspbian Downloads")):
 Hämta ner zip-filen och packa upp om du inte har Git. Byt katalog till
