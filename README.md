@@ -65,6 +65,10 @@ Har man hämtat ner Jopply med Git, är det väldigt lätt att uppdatera
 till senaste versionen, ty man ger bara kommandort `./update.sh` eller
 `sh update.sh` i katalogen jopply.
 
+Jopply sparar alla hämtade annonser i katalogen ad och läser i första
+hand annonser därifrån innan den vid behov hämtar från nätet. Mappen ad
+kan behöva rensas ibland.
+
 [en] The command-line arguments are also in
 Swedish and are the same as in the specification from
 Arbetsförmedlingen (Swedish government organisation).
@@ -85,13 +89,13 @@ växlar kan förkortas, men de måste vara unika.
 ##### `./jopply.sh --lanid`
 
 #### Visa annonsid och rubrik för alla jobbannonser i Stockholms län som innehåller CAD och 3D!
-##### `./jopply.sh --nyckelord=CAD,3D --l=1 --verbose`
+##### `./jopply.sh --nyckelord=CAD,3D --lanid=1 --verbose`
 
 #### Visa annons-ID och e-postadress för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via e-post!
 ##### `./jopply.sh --nyckelord=CAD --lanid=1 --epost`
 
 #### Visa annonsid och webbplats för jobbannonser i Stockholms län som innehåller CAD och som är markerade som sökbara via webbplats!
-##### `./jopply.sh --nyckelord=CAD --lanid=1 --webb`
+##### `./jopply.sh --ny=CAD --l=1 --webb`
 
 #### Visa annonsid och webbplats eller e-postadress för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via webbplatser eller e-post!
 ##### `./jopply.sh -n=CAD -l=1 -w -e`
