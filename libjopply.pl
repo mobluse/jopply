@@ -63,14 +63,22 @@ my $has_epostadress = '';
 my $has_webbplats   = '';
 my $annonsid            = '';
 GetOptions(
-    'help|?'              => \$help,
-    man                   => \$man,
-    verbose               => \$verbose,
-    'nyckelord|keyword=s' => \$nyckelord,
-    'lanid:i'             => \$lanid,
-    'epostadress'         => \$has_epostadress,
-    'webbplats'           => \$has_webbplats,
-    'annonsid=s'          => \$annonsid
+    'help|?'                => \$help,
+    man                     => \$man,
+    verbose                 => \$verbose,
+    epostadress             => \$has_epostadress,
+    webbplats               => \$has_webbplats,
+    'annonsid=s'            => \$annonsid,
+    'nyckelord|keyword=s'   => \$nyckelord,
+    'kommunid:i'            => \$kommunid,
+    'yrkesid:i'             => \$yrkesid,
+    'organisationsnummer=s' => \$organisationsnummer,
+    'yrkesgruppid:i'        => \$yrkesgruppid,
+    'yrkesomradeid:i'       => \$yrkesomradeid,
+    'landid:i'              => \$landid,
+    'lanid:i'               => \$lanid,
+    'anstallningstyp=s'     => \$anstallningstyp,
+    'omradeid:i'            => \$omradeid,
 ) or pod2usage(2);
 
 if ($man) {
