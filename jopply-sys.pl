@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Jopply-Sys 2015-06-19 by M.O.B. as Perl command-line application.
+# Jopply-Sys 2015-06-28 by M.O.B. as Perl command-line application.
 # Copyright (C) 2015 by Mikael O. Bonnier, Lund, Sweden.
 # License: GNU AGPL v3 or later, https://gnu.org/licenses/agpl-3.0.txt
 # ABSOLUTELY NO WARRANTY.
@@ -60,13 +60,14 @@ jopply-sys.pl - Hjälper till att söka jobb i Sverige.
 
 =head1 SYNOPSIS
 
-./jopply.pl [options ...]
+./jopply-sys.pl [options ...]
 
 Options:
   --help kortfattat hjälpmeddelande
-  --man full dokumentation (koden)
+  --man full dokumentation
   --verbose mer text om varje post
   --lanid=12 läns-ID
+  --kommunid=1281 kommunid
   --nyckelord=CAD,3D lista med söktermer
   --epost visa jobb som söks via e-post
   --webb visa jobb som söks via webbtjänster
@@ -82,7 +83,7 @@ Skriver ut en kortfattad hjälptext och avslutar.
 
 =item B<--man>
 
-Visar manualsidan (men nu koden). Avsluta med q.
+Visar manualsidan. Avsluta med q.
 
 =item B<--verbose>
 
@@ -91,6 +92,11 @@ Visar mer text om varje post.
 =item B<--lanid>
 
 Väljer läns-ID. Om ID utelämnas så visas en lista med ID och län.
+
+=item B<--kommunid>
+
+Väljer kommun-ID. Om ID utelämnas så visas en lista med ID och kommuner,
+under förutstättning att lanid är satt.
 
 =item B<--nyckelord eller --keyword>
 

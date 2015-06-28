@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Jopply 2015-06-26 by M.O.B. as Perl command-line application.
+# Jopply 2015-06-28 by M.O.B. as Perl command-line application.
 # Copyright (C) 2015 by Mikael O. Bonnier, Lund, Sweden.
 # License: GNU AGPL v3 or later, https://gnu.org/licenses/agpl-3.0.txt
 # ABSOLUTELY NO WARRANTY.

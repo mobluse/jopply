@@ -88,6 +88,9 @@ växlar kan förkortas, men de måste vara unika.
 #### Visa alla län med läns-ID!
 ##### `./jopply.sh --lanid`
 
+#### Visa alla kommuner med kommun-ID i Skåne!
+##### `./jopply.sh --lanid=12 --kommunid`
+
 #### Visa annonsid och rubrik för alla jobbannonser i Stockholms län som innehåller CAD och 3D!
 ##### `./jopply.sh --nyckelord=CAD,3D --lanid=1 --verbose`
 
