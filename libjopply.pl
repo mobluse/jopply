@@ -59,8 +59,8 @@ my $man                 = 0;
 my $verbose             = 0;
 my $nyckelord           = '';
 my $lanid               = '';
-my $has_epostadress = '';
-my $has_webbplats   = '';
+my $has_epostadress     = '';
+my $has_webbplats       = '';
 my $annonsid            = '';
 GetOptions(
     'help|?'                => \$help,
@@ -86,7 +86,8 @@ if ($man) {
 }
 if (   ( $help || !$nyckelord )
     && !$annonsid
-    && !( $lanid ne '' && $lanid == 0 ) )
+    && !( $lanid ne '' && $lanid == 0 )
+    && !( $lanid > 0 && $kommunid ne '' && $kommunid == 0 ) )
 {
     pod2usage(1);
 }
@@ -111,15 +112,29 @@ if ( $lanid ne '' && $lanid == 0 ) {
     $decoded_json  = decode_json($response_body);
 
     #print(Dumper $decoded_json);
-    my $lan = $decoded_json->{'soklista'}{'sokdata'};
     for my $elem ( @{ $decoded_json->{'soklista'}{'sokdata'} } ) {
-        printf "%2d; %s\n", $elem->{id}, ansi2utf8( $elem->{namn} );
+        printf "%2d; %s; %d\n", $elem->{id},
+                                ansi2utf8( $elem->{namn} ),
+                                $elem->{antal_platsannonser};
+    }
+    exit 0;
+}
+if ( $lanid > 0 && $kommunid ne '' && $kommunid == 0 ) {
+    $response_body = url_get("$URL/soklista/kommuner?lanid=$lanid");
+    $decoded_json  = decode_json($response_body);
+
+    #print(Dumper $decoded_json);
+    for my $elem ( @{ $decoded_json->{'soklista'}{'sokdata'} } ) {
+        printf "%4d; %s; %d\n", $elem->{id},
+                                 ansi2utf8( $elem->{namn} ),
+                                 $elem->{antal_platsannonser};
     }
     exit 0;
 }
 
 $response_body = url_get(
-    "$URL/matchning?lanid=$lanid" . "&nyckelord=$nyckelord&antalrader=9999" );
+      "$URL/matchning?lanid=$lanid&kommunid=$kommunid"
+    . "&nyckelord=$nyckelord&antalrader=9999" );
 $decoded_json = decode_json($response_body);
 if ( $decoded_json->{Error} ) {
     print Dumper $decoded_json;
