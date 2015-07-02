@@ -1,7 +1,7 @@
 [file_prefs]
 final_new_line=false
 ensure_convert_new_lines=false
-strip_trailing_spaces=true
+strip_trailing_spaces=false
 replace_tabs=true
 
 [indentation]
@@ -23,12 +23,13 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=0
+current_page=5
 FILE_NAME_0=5392;Markdown;0;16;0;1;1;%2Fhome%2Fpi%2FDocuments%2Fjopply%2FREADME.md;0;4
 FILE_NAME_1=35;Perl;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Flibjopply.pl;0;4
 FILE_NAME_2=40;Perl;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Fjopply-curl.pl;0;4
 FILE_NAME_3=40;Perl;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Fjopply-furl.pl;0;4
 FILE_NAME_4=39;Perl;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Fjopply-sys.pl;0;4
+FILE_NAME_5=36;Markdown;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Fuppgift-om-meriter.md;0;4
 
 [VTE]
 last_dir=/home/pi
