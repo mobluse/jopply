@@ -65,6 +65,7 @@ Options:
   --help kortfattat hjälpmeddelande
   --man full dokumentation
   --verbose mer text om varje post
+  --cache söker i cachen och ej online
   --lanid=12 läns-ID
   --kommunid=1281 kommunid
   --nyckelord=CAD,3D lista med söktermer

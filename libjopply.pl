@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Jopply 2015-06-28 by M.O.B. as Perl command-line application.
+# Jopply 2015-07-10 by M.O.B. as Perl command-line application.
 # Copyright (C) 2015 by Mikael O. Bonnier, Lund, Sweden.
 # License: GNU AGPL v3 or later, https://gnu.org/licenses/agpl-3.0.txt
 # ABSOLUTELY NO WARRANTY.
@@ -40,6 +40,9 @@
 # Mikael Bonnier
 ######################################################################
 
+use strict;
+use warnings;
+use utf8;
 my $encoding = fix_encoding();
 $Data::Dumper::Useqq = 1;
 
@@ -57,15 +60,25 @@ $Data::Dumper::Useqq = 1;
 my $help                = 0;
 my $man                 = 0;
 my $verbose             = 0;
-my $nyckelord           = '';
-my $lanid               = '';
+my $has_cache           = 0;
 my $has_epostadress     = '';
 my $has_webbplats       = '';
 my $annonsid            = '';
+my $nyckelord           = '';
+my $kommunid            = '';
+my $yrkesid             = '';
+my $organisationsnummer = '';
+my $yrkesgruppid        = '';
+my $yrkesomradeid       = '';
+my $landid              = '';
+my $lanid               = '';
+my $anstallningstyp     = '';
+my $omradeid            = '';
 GetOptions(
     'help|?'                => \$help,
     man                     => \$man,
     verbose                 => \$verbose,
+    cache                   => \$has_cache,
     epostadress             => \$has_epostadress,
     webbplats               => \$has_webbplats,
     'annonsid=s'            => \$annonsid,
@@ -87,7 +100,7 @@ if ($man) {
 if (   ( $help || !$nyckelord )
     && !$annonsid
     && !( $lanid ne '' && $lanid == 0 )
-    && !( $lanid > 0 && $kommunid ne '' && $kommunid == 0 ) )
+    && !( $kommunid ne '' && $kommunid == 0 && $lanid > 0 ) )
 {
     pod2usage(1);
 }
@@ -100,7 +113,7 @@ my $URL = "http://api.arbetsformedlingen.se/af/v0/platsannonser";
 our $response_body;
 our $retcode;
 my $decoded_json;
-mkdir ad;
+mkdir 'ad';
 if ($annonsid) {
     $response_body = get_ad($annonsid);
     $decoded_json  = decode_json($response_body);
@@ -111,7 +124,6 @@ if ( $lanid ne '' && $lanid == 0 ) {
     $response_body = url_get("$URL/soklista/lan");
     $decoded_json  = decode_json($response_body);
 
-    #print(Dumper $decoded_json);
     for my $elem ( @{ $decoded_json->{'soklista'}{'sokdata'} } ) {
         printf "%2d; %s; %d\n", $elem->{id},
                                 ansi2utf8( $elem->{namn} ),
@@ -119,11 +131,10 @@ if ( $lanid ne '' && $lanid == 0 ) {
     }
     exit 0;
 }
-if ( $lanid > 0 && $kommunid ne '' && $kommunid == 0 ) {
+if ( $kommunid ne '' && $kommunid == 0 && $lanid > 0 ) {
     $response_body = url_get("$URL/soklista/kommuner?lanid=$lanid");
     $decoded_json  = decode_json($response_body);
 
-    #print(Dumper $decoded_json);
     for my $elem ( @{ $decoded_json->{'soklista'}{'sokdata'} } ) {
         printf "%4d; %s; %d\n", $elem->{id},
                                  ansi2utf8( $elem->{namn} ),
@@ -132,73 +143,115 @@ if ( $lanid > 0 && $kommunid ne '' && $kommunid == 0 ) {
     exit 0;
 }
 
-$response_body = url_get(
-      "$URL/matchning?lanid=$lanid&kommunid=$kommunid"
-    . "&nyckelord=$nyckelord&antalrader=9999" );
-$decoded_json = decode_json($response_body);
-if ( $decoded_json->{Error} ) {
-    print Dumper $decoded_json;
-    exit 0;
-}
-
-if ( !$decoded_json->{'matchningslista'}{'antal_sidor'} ) {
-    exit 1;
-}
 my $total    = 0;
 my $line     = 0;
-my $annonser = $decoded_json->{'matchningslista'}{'matchningdata'};
-for my $elem ( @{ $decoded_json->{'matchningslista'}{'matchningdata'} } ) {
-    ++$total;
-    if ( $has_epostadress || $has_webbplats ) {
-        sleep 0.2;
-        $response_body = get_ad($elem->{'annonsid'});
-        $decoded_json  = decode_json($response_body);
-        my $epostadress
-            = $decoded_json->{'platsannons'}{'ansokan'}{'epostadress'};
-        my $webbplats
-            = $decoded_json->{'platsannons'}{'ansokan'}{'webbplats'};
+if ($has_cache) {
+    opendir(my $dh, 'ad') || die "can't opendir: $!";
+    my @dir = readdir $dh;
 
-        # According to the specification webbplats should be webbadress.
-        my $b_line = 0;
-        if ( $has_epostadress && $epostadress ) {
-            $b_line = 1;
-            ++$line;
-            print "$line; $elem->{'annonsid'}; $epostadress";
+    for my $filename ( @dir ) {
+        if ( $filename eq '.' || $filename eq '..' ) {
+            next;
         }
-        if ( $has_webbplats && $webbplats ) {
-            $webbplats = ansi2utf8($webbplats);
-            if ($b_line) {
-                print "; $webbplats\n";
-            }
-            else {
-                $b_line = 1;
-                ++$line;
-                print "$line; $elem->{'annonsid'}; ; $webbplats\n";
+        $filename =~ s/\.js$//;
+        ++$total;
+        $response_body = get_ad($filename);
+        $decoded_json  = decode_json($response_body);
+        $decoded_json->{'platsannons'}{'annons'}{'annonstext'} = '';
+        if ( $has_epostadress || $has_webbplats ) {
+            my $has_line = print_record($decoded_json);
+            if ( $has_line && $verbose ) {
+                print Dumper $decoded_json->{'platsannons'}{'annons'};
+                print Dumper $decoded_json->{'platsannons'}{'ansokan'};
             }
         }
         else {
-            if ($b_line) {
-                print("\n");
+            ++$line;
+            my $annonsrubrik = ansi2utf8( $decoded_json->{'platsannons'}{'annons'}{'annonsrubrik'} );
+            my $kommunnamn   = ansi2utf8( $decoded_json->{'platsannons'}{'annons'}{'kommunnamn'} );
+            print "$line; $decoded_json->{'platsannons'}{'annons'}{'annonsid'}; ; ; $annonsrubrik; $kommunnamn\n";
+            if ($verbose) {
+                print Dumper $decoded_json->{'platsannons'}{'annons'};
             }
         }
-        if ( $b_line && $verbose ) {
-            print Dumper $elem;
-            print Dumper $decoded_json->{'platsannons'}{'ansokan'};
-        }
     }
-    else {
-        ++$line;
-        my $annonsrubrik = ansi2utf8( $elem->{'annonsrubrik'} );
-        my $kommunnamn   = ansi2utf8( $elem->{'kommunnamn'} );
-        print "$line; $elem->{'annonsid'}; $annonsrubrik; $kommunnamn\n";
-        if ($verbose) {
-            print Dumper $elem;
+}
+else {
+    $response_body = url_get(
+          "$URL/matchning?lanid=$lanid&kommunid=$kommunid"
+        . "&nyckelord=$nyckelord&antalrader=9999" );
+    $decoded_json = decode_json($response_body);
+    if ( $decoded_json->{Error} ) {
+        print Dumper $decoded_json;
+        exit 1;
+    }
+
+    if ( !$decoded_json->{'matchningslista'}{'antal_sidor'} ) {
+        print "No data.\n";
+        exit 2;
+    }
+
+    for my $elem ( @{ $decoded_json->{'matchningslista'}{'matchningdata'} } ) {
+        ++$total;
+        if ( $has_epostadress || $has_webbplats ) {
+            sleep 0.2;
+            $response_body = get_ad($elem->{'annonsid'});
+            $decoded_json  = decode_json($response_body);
+            my $has_line = print_record($decoded_json);
+            if ( $has_line && $verbose ) {
+                print Dumper $elem;
+                print Dumper $decoded_json->{'platsannons'}{'ansokan'};
+            }
+        }
+        else {
+            ++$line;
+            my $annonsrubrik = ansi2utf8( $elem->{'annonsrubrik'} );
+            my $kommunnamn   = ansi2utf8( $elem->{'kommunnamn'} );
+            print "$line; $elem->{'annonsid'}; $annonsrubrik; $kommunnamn\n";
+            if ($verbose) {
+                print Dumper $elem;
+            }
         }
     }
 }
 print(    "Total; $line/$total="
         . sprintf( '%.2f', 100 * $line / $total )
         . "%\n" );
+
+sub print_record {
+    my ($json) = @_;
+    my $epostadress
+        = $json->{'platsannons'}{'ansokan'}{'epostadress'};
+    my $webbplats
+        = $json->{'platsannons'}{'ansokan'}{'webbplats'};
+
+    # According to the specification webbplats should be webbadress.
+    my $b_line = 0;
+    if ( $has_epostadress && $epostadress ) {
+        $b_line = 1;
+        ++$line;
+        my $annonsrubrik = ansi2utf8( $json->{'platsannons'}{'annons'}{'annonsrubrik'} );
+        my $kommunnamn = ansi2utf8( $json->{'platsannons'}{'annons'}{'kommunnamn'} );
+        print "$line; $json->{'platsannons'}{'annons'}{'annonsid'}; $epostadress; ; $annonsrubrik; $kommunnamn";
+    }
+    if ( $has_webbplats && $webbplats ) {
+        $webbplats = ansi2utf8($webbplats);
+        if ($b_line) {
+            print "; $webbplats\n";
+        }
+        else {
+            $b_line = 1;
+            ++$line;
+            print "$line; $json->{'platsannons'}{'annons'}{'annonsid'}; ; $webbplats\n";
+        }
+    }
+    else {
+        if ($b_line) {
+            print("\n");
+        }
+    }
+    return $b_line;
+}
 
 sub fix_encoding {
     my $enc = $^O eq 'MSWin32' ? 'cp850' : 'utf8';
@@ -238,6 +291,7 @@ sub uri_esc {
 
 sub get_ad {
     my ($ad) = @_;
+    my $body;
     if (-f "ad/$ad.js") {
         open INFILE, '<', "ad/$ad.js";
         $body = join('', <INFILE>);
