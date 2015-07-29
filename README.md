@@ -101,7 +101,7 @@ växlar kan förkortas, men de måste vara unika.
 ##### `./jopply.sh --n=CAD --lanid=1 --webb`
 
 #### Visa annonsid och webbplats eller e-postadress för jobbannonser i Stockholms län som innehåller CAD och som är sökbara via webbplatser eller e-post!
-##### `./jopply.sh -n CAD --lanid 1 -w -e`
+##### `./jopply.sh --n CAD --lanid 1 --w --e`
 
 #### Visa annons med annons-ID!
 ##### `./jopply.sh --annonsid=2621881`
