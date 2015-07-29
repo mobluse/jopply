@@ -43,7 +43,7 @@
 use strict;
 use warnings;
 use utf8;
-use Getopt::Long;
+use Getopt::Long; # Works with Getopt::Long::Complete, but big install.
 use Time::HiRes qw(sleep);
 use Encode qw(decode encode);
 use Data::Dumper;
