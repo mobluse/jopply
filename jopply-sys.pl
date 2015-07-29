@@ -27,18 +27,10 @@
 #
 ######################################################################
 
+use 5.008008;
 use strict;
 use warnings;
 use utf8;
-use Time::HiRes qw(sleep);
-use Getopt::Long;
-use Encode qw(decode encode);
-use Data::Dumper;
-use lib ( $ENV{HOME} ? $ENV{HOME} : '..' ) . '/jopply-pm';
-use Pod::Usage;
-use URI::Escape;
-use JSON;
-use 5.008008;
 
 require 'libjopply.pl';
 

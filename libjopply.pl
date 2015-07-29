@@ -43,19 +43,14 @@
 use strict;
 use warnings;
 use utf8;
-my $encoding = fix_encoding();
-$Data::Dumper::Useqq = 1;
-
-{
-    no warnings 'redefine';
-
-    sub Data::Dumper::qquote {
-        my $s = shift;
-
-        #return "'$s'"
-        return "'" . ansi2utf8($s) . "'";
-    }
-}
+use Getopt::Long;
+use Time::HiRes qw(sleep);
+use Encode qw(decode encode);
+use Data::Dumper;
+use lib ( $ENV{HOME} ? $ENV{HOME} : '..' ) . '/jopply-pm';
+use URI::Escape;
+use JSON;
+use Pod::Usage;
 
 my $help                = 0;
 my $man                 = 0;
@@ -93,6 +88,20 @@ GetOptions(
     'anstallningstyp=s'     => \$anstallningstyp,
     'omradeid:i'            => \$omradeid,
 ) or pod2usage(2);
+
+my $encoding = fix_encoding();
+$Data::Dumper::Useqq = 1;
+
+{
+    no warnings 'redefine';
+
+    sub Data::Dumper::qquote {
+        my $s = shift;
+
+        #return "'$s'"
+        return "'" . ansi2utf8($s) . "'";
+    }
+}
 
 if ($man) {
     pod2usage( -exitval => 0, -verbose => 2 );
@@ -194,7 +203,6 @@ else {
     for my $elem ( @{ $decoded_json->{'matchningslista'}{'matchningdata'} } ) {
         ++$total;
         if ( $has_epostadress || $has_webbplats ) {
-            sleep 0.2;
             $response_body = get_ad($elem->{'annonsid'});
             $decoded_json  = decode_json($response_body);
             my $has_line = print_record($decoded_json);
@@ -232,7 +240,7 @@ sub print_record {
         ++$line;
         my $annonsrubrik = ansi2utf8( $json->{'platsannons'}{'annons'}{'annonsrubrik'} );
         my $kommunnamn = ansi2utf8( $json->{'platsannons'}{'annons'}{'kommunnamn'} );
-        print "$line; $json->{'platsannons'}{'annons'}{'annonsid'}; $epostadress; ; $annonsrubrik; $kommunnamn";
+        print "$line; $json->{'platsannons'}{'annons'}{'annonsid'}; $epostadress; ; $annonsrubrik; $kommunnamn; $json->{'platsannons'}{'annons'}{'platsannonsUrl'}";
     }
     if ( $has_webbplats && $webbplats ) {
         $webbplats = ansi2utf8($webbplats);
@@ -267,7 +275,7 @@ sub ansi2utf8 {
     my $tmp;
     eval { $tmp = decode( 'cp1252', $s ); };
     if ($@) {
-        warn "caught error: $@";
+        #warn "Warning: $@";
     }
     else {
         $s = $tmp;
@@ -299,6 +307,7 @@ sub get_ad {
     }
     else {
         warn "Creating ad/$ad.js\n";
+        sleep 0.2;
         $body = url_get("$URL/$ad");
         open OUTFILE, '>', "ad/$ad.js";
         print OUTFILE $body;
