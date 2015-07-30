@@ -43,7 +43,10 @@
 use strict;
 use warnings;
 use utf8;
-use Getopt::Long; # Works with Getopt::Long::Complete, but big install.
+use Getopt::Long; # Works with Getopt::Long::Complete, but big install:
+                  # sudo cpanm Getopt::Long::Complete
+                  # sudo cp jopply-sys.pl /usr/local/bin/jopply
+                  # complete -C jopply jopply
 use Time::HiRes qw(sleep);
 use Encode qw(decode encode);
 use Data::Dumper;
