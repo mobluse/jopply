@@ -266,12 +266,12 @@ sub print_record {
 }
 
 sub fix_encoding {
-    my $enc = term_encoding(); # $^O eq 'MSWin32' ? 'cp850' : 'utf8';
+    my $enc = term_encoding(); # WAS: $^O eq 'MSWin32' ? 'cp850' : 'utf8';
     if ( $enc eq '' ) {
-        $enc = 'utf8';
+        $enc = 'utf-8';
     }
     
-    if ( $enc ne 'utf8' ) {
+    if ( $enc ne 'utf-8' ) {
         binmode STDOUT, ":encoding($enc)";
         binmode STDIN,  ":encoding($enc)";
     }
@@ -288,7 +288,7 @@ sub ansi2utf8 {
     else {
         $s = $tmp;
     }
-    if ( $encoding eq 'utf8' ) {
+    if ( $encoding eq 'utf-8' ) {
         $s = encode( $encoding, $s );
     }
     return $s;
@@ -296,7 +296,7 @@ sub ansi2utf8 {
 
 sub uri_esc {
     my ($k) = @_;
-    if ( $encoding ne 'utf8' ) {
+    if ( $encoding ne 'utf-8' ) {
         $k = uri_escape_utf8($k);
     }
     else {
