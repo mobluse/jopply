@@ -51,6 +51,7 @@ use Time::HiRes qw(sleep);
 use Encode qw(decode encode);
 use Data::Dumper;
 use lib ( $ENV{HOME} ? $ENV{HOME} : '..' ) . '/jopply-pm';
+use Term::Encoding qw(term_encoding);
 use URI::Escape;
 use JSON;
 use Pod::Usage;
@@ -265,7 +266,8 @@ sub print_record {
 }
 
 sub fix_encoding {
-    my $enc = $^O eq 'MSWin32' ? 'cp850' : 'utf8';
+    my $enc = term_encoding(); # $^O eq 'MSWin32' ? 'cp850' : 'utf8';
+    
     if ( $enc ne 'utf8' ) {
         binmode STDOUT, ":encoding($enc)";
         binmode STDIN,  ":encoding($enc)";

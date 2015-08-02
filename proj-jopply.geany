@@ -24,13 +24,15 @@ long_line_column=72
 
 [files]
 current_page=6
-FILE_NAME_0=5392;Markdown;0;16;0;1;1;%2Fhome%2Fpi%2FDocuments%2Fjopply%2FREADME.md;0;4
-FILE_NAME_1=7596;Perl;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Flibjopply.pl;0;4
-FILE_NAME_2=1785;Perl;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Fjopply-curl.pl;0;4
-FILE_NAME_3=1635;Perl;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Fjopply-furl.pl;0;4
-FILE_NAME_4=1155;Perl;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Fjopply-sys.pl;0;4
+FILE_NAME_0=5583;Markdown;0;16;0;1;1;%2Fhome%2Fpi%2FDocuments%2Fjopply%2FREADME.md;0;4
+FILE_NAME_1=1367;Perl;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Flibjopply.pl;0;4
+FILE_NAME_2=925;Perl;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Fjopply-curl.pl;0;4
+FILE_NAME_3=975;Perl;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Fjopply-furl.pl;0;4
+FILE_NAME_4=1024;Perl;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Fjopply-sys.pl;0;4
 FILE_NAME_5=934;Markdown;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Fuppgift-om-meriter.md;0;4
-FILE_NAME_6=246;Perl;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Fnonappljobs.pl;0;4
+FILE_NAME_6=220;Perl;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Fnonappljobs.pl;0;4
+FILE_NAME_7=492;None;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Femail-new.txt;0;4
+FILE_NAME_8=0;None;0;16;0;1;0;%2Fhome%2Fpi%2FDocuments%2Fjopply%2Femail-appl.txt;0;4
 
 [VTE]
 last_dir=/home/pi
