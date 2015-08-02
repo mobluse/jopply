@@ -267,6 +267,9 @@ sub print_record {
 
 sub fix_encoding {
     my $enc = term_encoding(); # $^O eq 'MSWin32' ? 'cp850' : 'utf8';
+    if ( $enc eq '' ) {
+        $enc = 'utf8';
+    }
     
     if ( $enc ne 'utf8' ) {
         binmode STDOUT, ":encoding($enc)";
