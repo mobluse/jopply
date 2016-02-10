@@ -30,13 +30,13 @@ varianterna av Jopply fungerar inte i Git Bash för Windows.
 ### Hur man installerar i Linux (t.ex. [Ubuntu](http://ubuntu-se.org/drupal/download "Ladda ner Ubuntu"), [Debian](https://www.debian.org/index.sv.html "Debian"), [Raspbian](https://www.raspberrypi.org/downloads/ "Raspbian Downloads")):
 Hämta ner zip-filen och packa upp om du inte har Git. Byt katalog till
 där Jopply packades upp eller hämtades ner.
-#### `sudo apt-get update && sudo apt-get install libjson-perl`
+#### `sudo apt-get update && sudo apt-get install libterm-encoding-perl libany-uri-escape-perl libjson-perl`
 #### `./jopply.sh`
 Alternativt,
-#### `sudo apt-get update && sudo apt-get install libjson-perl libwww-curl-perl`
+#### `sudo apt-get update && sudo apt-get install libterm-encoding-perl libany-uri-escape-perl libjson-perl libwww-curl-perl`
 #### `./jopply-curl.pl`
 Alternativt,
-#### `sudo apt-get update && sudo apt-get install libjson-perl cpanminus && sudo cpanm Furl`
+#### `sudo apt-get update && sudo apt-get install libterm-encoding-perl libany-uri-escape-perl libjson-perl cpanminus && sudo cpanm Furl`
 #### `./jopply-furl.pl`
 Testat i Raspbian på Raspberry Pi och Ubuntu på x86-32.
 
