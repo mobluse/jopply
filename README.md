@@ -36,7 +36,7 @@ Alternativt,
 #### `sudo apt-get update && sudo apt-get install libterm-encoding-perl libany-uri-escape-perl libjson-perl libwww-curl-perl`
 #### `./jopply-curl.pl`
 Alternativt,
-#### `sudo apt-get update && sudo apt-get install libterm-encoding-perl libany-uri-escape-perl libjson-perl cpanminus && sudo cpanm Furl`
+#### `sudo apt-get update && sudo apt-get install libterm-encoding-perl libany-uri-escape-perl libjson-perl libfurl-perl`
 #### `./jopply-furl.pl`
 Testat i Raspbian på Raspberry Pi och Ubuntu på x86-32.
 
