@@ -62,7 +62,7 @@ kommandot. Då trycker man på mellanslag för att se nästa sida. Detta
 fungerar även i Linux.
 
 Har man hämtat ner Jopply med Git, är det väldigt lätt att uppdatera
-till senaste versionen, ty man ger bara kommandort `./update.sh` eller
+till senaste versionen, ty man ger bara kommandot `./update.sh` eller
 `sh update.sh` i katalogen jopply.
 
 Jopply sparar alla hämtade annonser i katalogen ad och läser i första
