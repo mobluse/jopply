@@ -107,7 +107,7 @@ växlar kan förkortas, men de måste vara unika.
 ##### `./jopply.sh --annonsid=2621881`
 ##### `./jopply.sh --ann 2621881`
 
-##Var såg du denna platsannons första gången?/Var har du sett annonsen?
+## Var såg du denna platsannons första gången?/Var har du sett annonsen?
 Detta är en vanlig fråga när man söker ett jobb. Svara helst "Annat"
 och ge länken till Jopply, ty då svarar du sanningsenligt och
 hjälper Jopply:
