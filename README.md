@@ -1,6 +1,7 @@
 # Jopply
 Jopply (a portmanteau of job and apply) helps applying for jobs.
-This is a very early release and everything will change. The rest of the
+This is a very early release and everything will change. Its API is 
+discontinued, but new, very different exists. The rest of the
 text is in Swedish, because right now it only works for a Swedish web
 service. There is also very high unemployment and lack of food in
 Sweden.
